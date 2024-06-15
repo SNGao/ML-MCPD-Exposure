@@ -14,7 +14,7 @@ library(splines)
 library(gam)
 library(caret)
 
-source('defined_functions.R')
+source('02_src/defined_functions.R')
 data_MCPD = read.csv('00_Data/data_MCPD.csv') # Generated from STATA files
 
 colnames(data_MCPD)
@@ -137,6 +137,11 @@ for (var in varList){
 }
 results_BA_CES
 ```
+
+```{r}
+write.csv(data_MCPD, '00_Data/process_data.csv')
+```
+
 
 # 04.GAM, SVR and RF Model
 ## GAM Model
