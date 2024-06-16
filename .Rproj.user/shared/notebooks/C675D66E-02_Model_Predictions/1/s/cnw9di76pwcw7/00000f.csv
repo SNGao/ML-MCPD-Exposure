@@ -1,0 +1,2025 @@
+"0","test_pool <- catboost.load_pool(data = X_test, label = y_test)"
+"0","cat_model <- catboost.train(train_pool,"
+"0","                            params = best_param_cat)"
+"2","Training catboost with default parameters! See help(catboost.train).
+"
+"1","Learning rate set to 0.041636
+"
+"1","0:	learn: 0.1570397	total: 795us	remaining: 795ms
+"
+"1","1:	learn: 0.1553559	total: 1.57ms	remaining: 783ms
+"
+"1","2:	learn: 0.1535482	total: 2.3ms	remaining: 764ms
+"
+"1","3:	learn: 0.1518893	total: 3.52ms	remaining: 876ms
+"
+"1","4:	learn: 0.1502692	total: 4.33ms	remaining: 861ms
+"
+"1","5:	learn: 0.1487349	total: 5.13ms	remaining: 849ms
+"
+"1","6:	learn: 0.1471165	total: 5.82ms	remaining: 826ms
+"
+"1","7:	learn: 0.1456850	total: 6.61ms	remaining: 820ms
+"
+"1","8:	learn: 0.1443865	total: 7.34ms	remaining: 808ms
+"
+"1","9:	learn: 0.1432467	total: 8.12ms	remaining: 804ms
+"
+"1","10:	learn: 0.1421002	total: 8.89ms	remaining: 800ms
+"
+"1","11:	learn: 0.1409563	total: 9.66ms	remaining: 796ms
+"
+"1","12:	learn: 0.1398270	total: 10.7ms	remaining: 811ms
+"
+"1","13:	learn: 0.1387483	total: 11.5ms	remaining: 813ms
+"
+"1","14:	learn: 0.1376744	total: 12.3ms	remaining: 807ms
+"
+"1","15:	learn: 0.1366762	total: 13.1ms	remaining: 803ms
+"
+"1","16:	learn: 0.1358568	total: 13.8ms	remaining: 797ms
+"
+"1","17:	learn: 0.1351361	total: 14.6ms	remaining: 798ms
+"
+"1","18:	learn: 0.1344117	total: 15.4ms	remaining: 795ms
+"
+"1","19:	learn: 0.1336600	total: 16.7ms	remaining: 821ms
+"
+"1","20:	learn: 0.1328626	total: 17.4ms	remaining: 814ms
+"
+"1","21:	learn: 0.1320222	total: 18.2ms	remaining: 808ms
+"
+"1","22:	learn: 0.1312175	total: 19ms	remaining: 805ms
+"
+"1","23:	learn: 0.1304720	total: 20.3ms	remaining: 825ms
+"
+"1","24:	learn: 0.1296231	total: 21.1ms	remaining: 824ms
+"
+"1","25:	learn: 0.1289014	total: 21.9ms	remaining: 821ms
+"
+"1","26:	learn: 0.1282051	total: 22.6ms	remaining: 814ms
+"
+"1","27:	learn: 0.1276511	total: 23.2ms	remaining: 807ms
+"
+"1","28:	learn: 0.1271290	total: 24ms	remaining: 804ms
+"
+"1","29:	learn: 0.1265461	total: 24.8ms	remaining: 801ms
+"
+"1","30:	learn: 0.1259233	total: 25.5ms	remaining: 797ms
+"
+"1","31:	learn: 0.1254379	total: 26.3ms	remaining: 794ms
+"
+"1","32:	learn: 0.1249686	total: 27ms	remaining: 790ms
+"
+"1","33:	learn: 0.1244345	total: 27.7ms	remaining: 787ms
+"
+"1","34:	learn: 0.1239312	total: 28.4ms	remaining: 782ms
+"
+"1","35:	learn: 0.1234005	total: 29.2ms	remaining: 782ms
+"
+"1","36:	learn: 0.1229715	total: 30ms	remaining: 780ms
+"
+"1","37:	learn: 0.1225397	total: 30.7ms	remaining: 778ms
+"
+"1","38:	learn: 0.1221481	total: 31.5ms	remaining: 776ms
+"
+"1","39:	learn: 0.1218524	total: 32.2ms	remaining: 773ms
+"
+"1","40:	learn: 0.1215104	total: 32.9ms	remaining: 770ms
+"
+"1","41:	learn: 0.1210726	total: 33.7ms	remaining: 768ms
+"
+"1","42:	learn: 0.1207870	total: 34.5ms	remaining: 767ms
+"
+"1","43:	learn: 0.1203827	total: 35.2ms	remaining: 765ms
+"
+"1","44:	learn: 0.1200258	total: 35.8ms	remaining: 761ms
+"
+"1","45:	learn: 0.1196695	total: 36.6ms	remaining: 758ms
+"
+"1","46:	learn: 0.1194029	total: 37.2ms	remaining: 755ms
+"
+"1","47:	learn: 0.1190870	total: 37.9ms	remaining: 752ms
+"
+"1","48:	learn: 0.1187494	total: 38.5ms	remaining: 748ms
+"
+"1","49:	learn: 0.1184549	total: 39.2ms	remaining: 745ms
+"
+"1","50:	learn: 0.1182086	total: 39.8ms	remaining: 741ms
+"
+"1","51:	learn: 0.1179083	total: 40.5ms	remaining: 739ms
+"
+"1","52:	learn: 0.1176270	total: 41.2ms	remaining: 737ms
+"
+"1","53:	learn: 0.1173512	total: 42ms	remaining: 736ms
+"
+"1","54:	learn: 0.1170398	total: 42.8ms	remaining: 735ms
+"
+"1","55:	learn: 0.1168097	total: 43.5ms	remaining: 734ms
+"
+"1","56:	learn: 0.1165723	total: 44.2ms	remaining: 731ms
+"
+"1","57:	learn: 0.1162812	total: 45ms	remaining: 731ms
+"
+"1","58:	learn: 0.1160474	total: 45.7ms	remaining: 729ms
+"
+"1","59:	learn: 0.1158702	total: 46.4ms	remaining: 727ms
+"
+"1","60:	learn: 0.1156004	total: 47.2ms	remaining: 727ms
+"
+"1","61:	learn: 0.1153332	total: 48ms	remaining: 727ms
+"
+"1","62:	learn: 0.1151532	total: 48.7ms	remaining: 725ms
+"
+"1","63:	learn: 0.1150063	total: 49.4ms	remaining: 722ms
+"
+"1","64:	learn: 0.1148701	total: 50.1ms	remaining: 721ms
+"
+"1","65:	learn: 0.1146885	total: 50.9ms	remaining: 720ms
+"
+"1","66:	learn: 0.1145281	total: 51.5ms	remaining: 718ms
+"
+"1","67:	learn: 0.1143540	total: 52.2ms	remaining: 716ms
+"
+"1","68:	learn: 0.1141057	total: 52.9ms	remaining: 714ms
+"
+"1","69:	learn: 0.1139100	total: 53.6ms	remaining: 712ms
+"
+"1","70:	learn: 0.1137308	total: 54.4ms	remaining: 711ms
+"
+"1","71:	learn: 0.1135668	total: 55.1ms	remaining: 710ms
+"
+"1","72:	learn: 0.1134184	total: 55.7ms	remaining: 708ms
+"
+"1","73:	learn: 0.1132897	total: 56.5ms	remaining: 706ms
+"
+"1","74:	learn: 0.1130556	total: 57.1ms	remaining: 705ms
+"
+"1","75:	learn: 0.1129341	total: 57.8ms	remaining: 703ms
+"
+"1","76:	learn: 0.1127449	total: 58.5ms	remaining: 702ms
+"
+"1","77:	learn: 0.1125820	total: 59.3ms	remaining: 701ms
+"
+"1","78:	learn: 0.1123378	total: 60.2ms	remaining: 702ms
+"
+"1","79:	learn: 0.1121815	total: 60.9ms	remaining: 701ms
+"
+"1","80:	learn: 0.1120187	total: 61.6ms	remaining: 699ms
+"
+"1","81:	learn: 0.1119280	total: 62.3ms	remaining: 697ms
+"
+"1","82:	learn: 0.1117532	total: 63ms	remaining: 696ms
+"
+"1","83:	learn: 0.1116383	total: 63.7ms	remaining: 695ms
+"
+"1","84:	learn: 0.1115304	total: 64.2ms	remaining: 692ms
+"
+"1","85:	learn: 0.1113883	total: 64.9ms	remaining: 690ms
+"
+"1","86:	learn: 0.1112428	total: 65.6ms	remaining: 688ms
+"
+"1","87:	learn: 0.1111267	total: 66.2ms	remaining: 686ms
+"
+"1","88:	learn: 0.1109715	total: 66.9ms	remaining: 685ms
+"
+"1","89:	learn: 0.1108528	total: 67.7ms	remaining: 685ms
+"
+"1","90:	learn: 0.1107190	total: 68.4ms	remaining: 683ms
+"
+"1","91:	learn: 0.1105238	total: 69ms	remaining: 681ms
+"
+"1","92:	learn: 0.1103750	total: 69.9ms	remaining: 682ms
+"
+"1","93:	learn: 0.1101706	total: 70.7ms	remaining: 681ms
+"
+"1","94:	learn: 0.1100406	total: 71.4ms	remaining: 680ms
+"
+"1","95:	learn: 0.1099096	total: 72.2ms	remaining: 679ms
+"
+"1","96:	learn: 0.1097989	total: 72.8ms	remaining: 678ms
+"
+"1","97:	learn: 0.1097158	total: 73.5ms	remaining: 677ms
+"
+"1","98:	learn: 0.1096030	total: 74.3ms	remaining: 676ms
+"
+"1","99:	learn: 0.1095173	total: 75ms	remaining: 675ms
+"
+"1","100:	learn: 0.1092747	total: 75.8ms	remaining: 674ms
+"
+"1","101:	learn: 0.1091631	total: 76.5ms	remaining: 673ms
+"
+"1","102:	learn: 0.1089864	total: 77.2ms	remaining: 672ms
+"
+"1","103:	learn: 0.1087477	total: 77.9ms	remaining: 671ms
+"
+"1","104:	learn: 0.1085965	total: 78.6ms	remaining: 670ms
+"
+"1","105:	learn: 0.1084097	total: 79.3ms	remaining: 669ms
+"
+"1","106:	learn: 0.1082233	total: 80.4ms	remaining: 671ms
+"
+"1","107:	learn: 0.1080698	total: 81.3ms	remaining: 671ms
+"
+"1","108:	learn: 0.1079491	total: 82ms	remaining: 670ms
+"
+"1","109:	learn: 0.1078015	total: 82.7ms	remaining: 669ms
+"
+"1","110:	learn: 0.1076957	total: 83.5ms	remaining: 669ms
+"
+"1","111:	learn: 0.1076010	total: 84.2ms	remaining: 668ms
+"
+"1","112:	learn: 0.1074743	total: 85.1ms	remaining: 668ms
+"
+"1","113:	learn: 0.1073856	total: 85.9ms	remaining: 667ms
+"
+"1","114:	learn: 0.1073080	total: 86.6ms	remaining: 667ms
+"
+"1","115:	learn: 0.1071297	total: 87.4ms	remaining: 666ms
+"
+"1","116:	learn: 0.1070302	total: 88.2ms	remaining: 665ms
+"
+"1","117:	learn: 0.1068900	total: 88.9ms	remaining: 665ms
+"
+"1","118:	learn: 0.1067460	total: 89.7ms	remaining: 664ms
+"
+"1","119:	learn: 0.1066554	total: 90.5ms	remaining: 663ms
+"
+"1","120:	learn: 0.1064976	total: 91.4ms	remaining: 664ms
+"
+"1","121:	learn: 0.1064439	total: 92.4ms	remaining: 665ms
+"
+"1","122:	learn: 0.1063707	total: 93.2ms	remaining: 665ms
+"
+"1","123:	learn: 0.1061156	total: 94.1ms	remaining: 665ms
+"
+"1","124:	learn: 0.1059132	total: 95.7ms	remaining: 670ms
+"
+"1","125:	learn: 0.1057758	total: 96.6ms	remaining: 670ms
+"
+"1","126:	learn: 0.1055920	total: 97.4ms	remaining: 670ms
+"
+"1","127:	learn: 0.1054747	total: 98.1ms	remaining: 669ms
+"
+"1","128:	learn: 0.1052731	total: 98.8ms	remaining: 667ms
+"
+"1","129:	learn: 0.1051695	total: 99.6ms	remaining: 666ms
+"
+"1","130:	learn: 0.1050989	total: 100ms	remaining: 665ms
+"
+"1","131:	learn: 0.1049881	total: 101ms	remaining: 664ms
+"
+"1","132:	learn: 0.1048661	total: 102ms	remaining: 666ms
+"
+"1","133:	learn: 0.1047615	total: 103ms	remaining: 664ms
+"
+"1","134:	learn: 0.1046804	total: 103ms	remaining: 663ms
+"
+"1","135:	learn: 0.1045296	total: 104ms	remaining: 662ms
+"
+"1","136:	learn: 0.1044221	total: 105ms	remaining: 660ms
+"
+"1","137:	learn: 0.1042644	total: 106ms	remaining: 659ms
+"
+"1","138:	learn: 0.1041559	total: 106ms	remaining: 658ms
+"
+"1","139:	learn: 0.1040683	total: 107ms	remaining: 657ms
+"
+"1","140:	learn: 0.1039355	total: 108ms	remaining: 656ms
+"
+"1","141:	learn: 0.1038075	total: 108ms	remaining: 655ms
+"
+"1","142:	learn: 0.1037146	total: 109ms	remaining: 655ms
+"
+"1","143:	learn: 0.1036377	total: 110ms	remaining: 655ms
+"
+"1","144:	learn: 0.1035686	total: 111ms	remaining: 654ms
+"
+"1","145:	learn: 0.1034938	total: 112ms	remaining: 652ms
+"
+"1","146:	learn: 0.1034184	total: 112ms	remaining: 651ms
+"
+"1","147:	learn: 0.1033247	total: 113ms	remaining: 650ms
+"
+"1","148:	learn: 0.1032505	total: 114ms	remaining: 649ms
+"
+"1","149:	learn: 0.1031711	total: 114ms	remaining: 649ms
+"
+"1","150:	learn: 0.1029766	total: 115ms	remaining: 649ms
+"
+"1","151:	learn: 0.1028826	total: 116ms	remaining: 647ms
+"
+"1","152:	learn: 0.1026220	total: 117ms	remaining: 646ms
+"
+"1","153:	learn: 0.1025587	total: 117ms	remaining: 645ms
+"
+"1","154:	learn: 0.1024256	total: 119ms	remaining: 647ms
+"
+"1","155:	learn: 0.1023187	total: 119ms	remaining: 646ms
+"
+"1","156:	learn: 0.1022300	total: 120ms	remaining: 645ms
+"
+"1","157:	learn: 0.1020252	total: 121ms	remaining: 644ms
+"
+"1","158:	learn: 0.1019568	total: 122ms	remaining: 643ms
+"
+"1","159:	learn: 0.1018217	total: 122ms	remaining: 642ms
+"
+"1","160:	learn: 0.1017643	total: 123ms	remaining: 643ms
+"
+"1","161:	learn: 0.1016824	total: 125ms	remaining: 648ms
+"
+"1","162:	learn: 0.1015846	total: 126ms	remaining: 647ms
+"
+"1","163:	learn: 0.1015164	total: 127ms	remaining: 646ms
+"
+"1","164:	learn: 0.1014432	total: 128ms	remaining: 645ms
+"
+"1","165:	learn: 0.1013185	total: 129ms	remaining: 647ms
+"
+"1","166:	learn: 0.1012154	total: 129ms	remaining: 646ms
+"
+"1","167:	learn: 0.1011421	total: 130ms	remaining: 645ms
+"
+"1","168:	learn: 0.1010071	total: 131ms	remaining: 644ms
+"
+"1","169:	learn: 0.1008174	total: 132ms	remaining: 644ms
+"
+"1","170:	learn: 0.1007539	total: 133ms	remaining: 643ms
+"
+"1","171:	learn: 0.1006510	total: 133ms	remaining: 643ms
+"
+"1","172:	learn: 0.1005485	total: 134ms	remaining: 641ms
+"
+"1","173:	learn: 0.1004550	total: 135ms	remaining: 640ms
+"
+"1","174:	learn: 0.1003169	total: 136ms	remaining: 640ms
+"
+"1","175:	learn: 0.1002198	total: 136ms	remaining: 639ms
+"
+"1","176:	learn: 0.1001092	total: 137ms	remaining: 637ms
+"
+"1","177:	learn: 0.0998755	total: 138ms	remaining: 636ms
+"
+"1","178:	learn: 0.0998024	total: 139ms	remaining: 635ms
+"
+"1","179:	learn: 0.0997149	total: 140ms	remaining: 637ms
+"
+"1","180:	learn: 0.0996604	total: 140ms	remaining: 636ms
+"
+"1","181:	learn: 0.0995822	total: 141ms	remaining: 635ms
+"
+"1","182:	learn: 0.0994490	total: 142ms	remaining: 634ms
+"
+"1","183:	learn: 0.0993342	total: 143ms	remaining: 633ms
+"
+"1","184:	learn: 0.0992420	total: 143ms	remaining: 632ms
+"
+"1","185:	learn: 0.0991811	total: 144ms	remaining: 631ms
+"
+"1","186:	learn: 0.0990818	total: 145ms	remaining: 630ms
+"
+"1","187:	learn: 0.0989426	total: 146ms	remaining: 629ms
+"
+"1","188:	learn: 0.0988089	total: 146ms	remaining: 628ms
+"
+"1","189:	learn: 0.0986775	total: 147ms	remaining: 627ms
+"
+"1","190:	learn: 0.0985626	total: 148ms	remaining: 626ms
+"
+"1","191:	learn: 0.0984491	total: 149ms	remaining: 625ms
+"
+"1","192:	learn: 0.0983765	total: 149ms	remaining: 625ms
+"
+"1","193:	learn: 0.0982990	total: 150ms	remaining: 625ms
+"
+"1","194:	learn: 0.0982259	total: 151ms	remaining: 625ms
+"
+"1","195:	learn: 0.0981180	total: 153ms	remaining: 629ms
+"
+"1","196:	learn: 0.0979359	total: 154ms	remaining: 628ms
+"
+"1","197:	learn: 0.0978342	total: 155ms	remaining: 627ms
+"
+"1","198:	learn: 0.0977341	total: 155ms	remaining: 626ms
+"
+"1","199:	learn: 0.0976073	total: 156ms	remaining: 625ms
+"
+"1","200:	learn: 0.0975203	total: 157ms	remaining: 625ms
+"
+"1","201:	learn: 0.0974398	total: 158ms	remaining: 624ms
+"
+"1","202:	learn: 0.0973925	total: 159ms	remaining: 624ms
+"
+"1","203:	learn: 0.0973280	total: 160ms	remaining: 623ms
+"
+"1","204:	learn: 0.0972378	total: 160ms	remaining: 622ms
+"
+"1","205:	learn: 0.0971864	total: 161ms	remaining: 620ms
+"
+"1","206:	learn: 0.0970287	total: 162ms	remaining: 619ms
+"
+"1","207:	learn: 0.0968348	total: 163ms	remaining: 620ms
+"
+"1","208:	learn: 0.0967744	total: 163ms	remaining: 618ms
+"
+"1","209:	learn: 0.0966950	total: 164ms	remaining: 617ms
+"
+"1","210:	learn: 0.0966149	total: 165ms	remaining: 616ms
+"
+"1","211:	learn: 0.0965236	total: 165ms	remaining: 615ms
+"
+"1","212:	learn: 0.0964463	total: 166ms	remaining: 614ms
+"
+"1","213:	learn: 0.0964023	total: 167ms	remaining: 613ms
+"
+"1","214:	learn: 0.0962998	total: 168ms	remaining: 612ms
+"
+"1","215:	learn: 0.0962531	total: 168ms	remaining: 611ms
+"
+"1","216:	learn: 0.0961148	total: 169ms	remaining: 611ms
+"
+"1","217:	learn: 0.0960200	total: 170ms	remaining: 610ms
+"
+"1","218:	learn: 0.0959524	total: 171ms	remaining: 611ms
+"
+"1","219:	learn: 0.0958230	total: 172ms	remaining: 610ms
+"
+"1","220:	learn: 0.0957565	total: 173ms	remaining: 609ms
+"
+"1","221:	learn: 0.0956436	total: 174ms	remaining: 608ms
+"
+"1","222:	learn: 0.0955289	total: 174ms	remaining: 607ms
+"
+"1","223:	learn: 0.0954215	total: 175ms	remaining: 606ms
+"
+"1","224:	learn: 0.0953183	total: 176ms	remaining: 607ms
+"
+"1","225:	learn: 0.0952094	total: 177ms	remaining: 606ms
+"
+"1","226:	learn: 0.0951558	total: 178ms	remaining: 605ms
+"
+"1","227:	learn: 0.0950717	total: 178ms	remaining: 604ms
+"
+"1","228:	learn: 0.0948809	total: 179ms	remaining: 603ms
+"
+"1","229:	learn: 0.0948147	total: 180ms	remaining: 602ms
+"
+"1","230:	learn: 0.0947683	total: 181ms	remaining: 601ms
+"
+"1","231:	learn: 0.0947149	total: 181ms	remaining: 601ms
+"
+"1","232:	learn: 0.0946755	total: 182ms	remaining: 600ms
+"
+"1","233:	learn: 0.0946125	total: 184ms	remaining: 601ms
+"
+"1","234:	learn: 0.0945605	total: 185ms	remaining: 601ms
+"
+"1","235:	learn: 0.0945321	total: 186ms	remaining: 601ms
+"
+"1","236:	learn: 0.0944498	total: 187ms	remaining: 601ms
+"
+"1","237:	learn: 0.0943870	total: 187ms	remaining: 600ms
+"
+"1","238:	learn: 0.0942296	total: 188ms	remaining: 599ms
+"
+"1","239:	learn: 0.0940942	total: 190ms	remaining: 600ms
+"
+"1","240:	learn: 0.0940144	total: 191ms	remaining: 601ms
+"
+"1","241:	learn: 0.0939541	total: 191ms	remaining: 600ms
+"
+"1","242:	learn: 0.0938330	total: 192ms	remaining: 599ms
+"
+"1","243:	learn: 0.0937967	total: 193ms	remaining: 600ms
+"
+"1","244:	learn: 0.0936033	total: 194ms	remaining: 598ms
+"
+"1","245:	learn: 0.0934770	total: 195ms	remaining: 597ms
+"
+"1","246:	learn: 0.0934010	total: 195ms	remaining: 596ms
+"
+"1","247:	learn: 0.0933171	total: 196ms	remaining: 595ms
+"
+"1","248:	learn: 0.0932059	total: 198ms	remaining: 596ms
+"
+"1","249:	learn: 0.0930886	total: 198ms	remaining: 595ms
+"
+"1","250:	learn: 0.0929908	total: 199ms	remaining: 594ms
+"
+"1","251:	learn: 0.0928925	total: 200ms	remaining: 593ms
+"
+"1","252:	learn: 0.0928491	total: 201ms	remaining: 593ms
+"
+"1","253:	learn: 0.0928088	total: 202ms	remaining: 592ms
+"
+"1","254:	learn: 0.0926115	total: 202ms	remaining: 591ms
+"
+"1","255:	learn: 0.0924293	total: 203ms	remaining: 591ms
+"
+"1","256:	learn: 0.0923044	total: 204ms	remaining: 591ms
+"
+"1","257:	learn: 0.0922146	total: 205ms	remaining: 590ms
+"
+"1","258:	learn: 0.0920170	total: 206ms	remaining: 589ms
+"
+"1","259:	learn: 0.0919067	total: 207ms	remaining: 588ms
+"
+"1","260:	learn: 0.0917497	total: 207ms	remaining: 587ms
+"
+"1","261:	learn: 0.0916438	total: 208ms	remaining: 586ms
+"
+"1","262:	learn: 0.0915934	total: 209ms	remaining: 585ms
+"
+"1","263:	learn: 0.0914913	total: 209ms	remaining: 583ms
+"
+"1","264:	learn: 0.0914388	total: 211ms	remaining: 585ms
+"
+"1","265:	learn: 0.0913418	total: 212ms	remaining: 584ms
+"
+"1","266:	learn: 0.0912876	total: 212ms	remaining: 583ms
+"
+"1","267:	learn: 0.0912165	total: 213ms	remaining: 582ms
+"
+"1","268:	learn: 0.0911008	total: 214ms	remaining: 581ms
+"
+"1","269:	learn: 0.0909794	total: 215ms	remaining: 582ms
+"
+"1","270:	learn: 0.0908743	total: 216ms	remaining: 581ms
+"
+"1","271:	learn: 0.0908056	total: 218ms	remaining: 583ms
+"
+"1","272:	learn: 0.0906877	total: 218ms	remaining: 582ms
+"
+"1","273:	learn: 0.0906420	total: 219ms	remaining: 581ms
+"
+"1","274:	learn: 0.0905242	total: 220ms	remaining: 581ms
+"
+"1","275:	learn: 0.0904425	total: 221ms	remaining: 580ms
+"
+"1","276:	learn: 0.0903345	total: 222ms	remaining: 580ms
+"
+"1","277:	learn: 0.0902214	total: 224ms	remaining: 583ms
+"
+"1","278:	learn: 0.0900568	total: 225ms	remaining: 582ms
+"
+"1","279:	learn: 0.0899676	total: 226ms	remaining: 581ms
+"
+"1","280:	learn: 0.0898825	total: 227ms	remaining: 581ms
+"
+"1","281:	learn: 0.0897172	total: 228ms	remaining: 580ms
+"
+"1","282:	learn: 0.0896479	total: 228ms	remaining: 578ms
+"
+"1","283:	learn: 0.0894958	total: 229ms	remaining: 578ms
+"
+"1","284:	learn: 0.0893764	total: 230ms	remaining: 576ms
+"
+"1","285:	learn: 0.0892559	total: 231ms	remaining: 576ms
+"
+"1","286:	learn: 0.0891767	total: 232ms	remaining: 576ms
+"
+"1","287:	learn: 0.0890967	total: 233ms	remaining: 575ms
+"
+"1","288:	learn: 0.0889344	total: 233ms	remaining: 574ms
+"
+"1","289:	learn: 0.0887877	total: 235ms	remaining: 575ms
+"
+"1","290:	learn: 0.0886763	total: 236ms	remaining: 576ms
+"
+"1","291:	learn: 0.0886313	total: 237ms	remaining: 575ms
+"
+"1","292:	learn: 0.0885631	total: 238ms	remaining: 574ms
+"
+"1","293:	learn: 0.0885008	total: 238ms	remaining: 573ms
+"
+"1","294:	learn: 0.0884086	total: 239ms	remaining: 572ms
+"
+"1","295:	learn: 0.0883449	total: 240ms	remaining: 571ms
+"
+"1","296:	learn: 0.0882341	total: 243ms	remaining: 575ms
+"
+"1","297:	learn: 0.0881834	total: 244ms	remaining: 574ms
+"
+"1","298:	learn: 0.0881113	total: 244ms	remaining: 573ms
+"
+"1","299:	learn: 0.0880685	total: 245ms	remaining: 572ms
+"
+"1","300:	learn: 0.0879755	total: 246ms	remaining: 571ms
+"
+"1","301:	learn: 0.0878523	total: 247ms	remaining: 570ms
+"
+"1","302:	learn: 0.0876692	total: 247ms	remaining: 569ms
+"
+"1","303:	learn: 0.0874770	total: 249ms	remaining: 570ms
+"
+"1","304:	learn: 0.0873632	total: 250ms	remaining: 569ms
+"
+"1","305:	learn: 0.0872305	total: 250ms	remaining: 568ms
+"
+"1","306:	learn: 0.0871256	total: 251ms	remaining: 566ms
+"
+"1","307:	learn: 0.0870173	total: 252ms	remaining: 566ms
+"
+"1","308:	learn: 0.0869453	total: 253ms	remaining: 565ms
+"
+"1","309:	learn: 0.0868548	total: 254ms	remaining: 565ms
+"
+"1","310:	learn: 0.0867893	total: 255ms	remaining: 564ms
+"
+"1","311:	learn: 0.0865557	total: 256ms	remaining: 564ms
+"
+"1","312:	learn: 0.0865037	total: 257ms	remaining: 563ms
+"
+"1","313:	learn: 0.0863031	total: 257ms	remaining: 562ms
+"
+"1","314:	learn: 0.0862219	total: 258ms	remaining: 561ms
+"
+"1","315:	learn: 0.0861369	total: 260ms	remaining: 562ms
+"
+"1","316:	learn: 0.0861228	total: 260ms	remaining: 561ms
+"
+"1","317:	learn: 0.0859593	total: 261ms	remaining: 560ms
+"
+"1","318:	learn: 0.0859241	total: 263ms	remaining: 561ms
+"
+"1","319:	learn: 0.0858713	total: 263ms	remaining: 560ms
+"
+"1","320:	learn: 0.0858151	total: 264ms	remaining: 559ms
+"
+"1","321:	learn: 0.0857760	total: 265ms	remaining: 558ms
+"
+"1","322:	learn: 0.0857333	total: 266ms	remaining: 558ms
+"
+"1","323:	learn: 0.0856464	total: 267ms	remaining: 557ms
+"
+"1","324:	learn: 0.0854520	total: 268ms	remaining: 556ms
+"
+"1","325:	learn: 0.0853531	total: 268ms	remaining: 555ms
+"
+"1","326:	learn: 0.0852642	total: 269ms	remaining: 554ms
+"
+"1","327:	learn: 0.0851835	total: 270ms	remaining: 554ms
+"
+"1","328:	learn: 0.0851463	total: 271ms	remaining: 553ms
+"
+"1","329:	learn: 0.0849737	total: 272ms	remaining: 551ms
+"
+"1","330:	learn: 0.0848653	total: 272ms	remaining: 550ms
+"
+"1","331:	learn: 0.0847849	total: 273ms	remaining: 549ms
+"
+"1","332:	learn: 0.0846177	total: 274ms	remaining: 549ms
+"
+"1","333:	learn: 0.0845291	total: 275ms	remaining: 548ms
+"
+"1","334:	learn: 0.0844686	total: 275ms	remaining: 547ms
+"
+"1","335:	learn: 0.0843236	total: 277ms	remaining: 547ms
+"
+"1","336:	learn: 0.0842020	total: 277ms	remaining: 545ms
+"
+"1","337:	learn: 0.0840702	total: 278ms	remaining: 545ms
+"
+"1","338:	learn: 0.0839758	total: 279ms	remaining: 544ms
+"
+"1","339:	learn: 0.0838565	total: 280ms	remaining: 543ms
+"
+"1","340:	learn: 0.0837810	total: 280ms	remaining: 542ms
+"
+"1","341:	learn: 0.0837107	total: 281ms	remaining: 541ms
+"
+"1","342:	learn: 0.0836404	total: 282ms	remaining: 540ms
+"
+"1","343:	learn: 0.0835569	total: 283ms	remaining: 539ms
+"
+"1","344:	learn: 0.0833735	total: 283ms	remaining: 538ms
+"
+"1","345:	learn: 0.0832220	total: 285ms	remaining: 538ms
+"
+"1","346:	learn: 0.0831605	total: 286ms	remaining: 538ms
+"
+"1","347:	learn: 0.0830521	total: 287ms	remaining: 537ms
+"
+"1","348:	learn: 0.0830192	total: 288ms	remaining: 536ms
+"
+"1","349:	learn: 0.0829709	total: 288ms	remaining: 536ms
+"
+"1","350:	learn: 0.0829000	total: 289ms	remaining: 535ms
+"
+"1","351:	learn: 0.0827956	total: 291ms	remaining: 536ms
+"
+"1","352:	learn: 0.0827272	total: 292ms	remaining: 536ms
+"
+"1","353:	learn: 0.0826691	total: 305ms	remaining: 556ms
+"
+"1","354:	learn: 0.0825985	total: 306ms	remaining: 556ms
+"
+"1","355:	learn: 0.0825704	total: 308ms	remaining: 557ms
+"
+"1","356:	learn: 0.0824441	total: 309ms	remaining: 557ms
+"
+"1","357:	learn: 0.0823975	total: 311ms	remaining: 557ms
+"
+"1","358:	learn: 0.0822909	total: 311ms	remaining: 556ms
+"
+"1","359:	learn: 0.0822116	total: 312ms	remaining: 555ms
+"
+"1","360:	learn: 0.0821430	total: 314ms	remaining: 556ms
+"
+"1","361:	learn: 0.0820642	total: 316ms	remaining: 556ms
+"
+"1","362:	learn: 0.0819383	total: 317ms	remaining: 557ms
+"
+"1","363:	learn: 0.0819119	total: 319ms	remaining: 557ms
+"
+"1","364:	learn: 0.0817972	total: 320ms	remaining: 557ms
+"
+"1","365:	learn: 0.0817437	total: 322ms	remaining: 558ms
+"
+"1","366:	learn: 0.0816712	total: 324ms	remaining: 559ms
+"
+"1","367:	learn: 0.0816334	total: 326ms	remaining: 560ms
+"
+"1","368:	learn: 0.0815125	total: 328ms	remaining: 561ms
+"
+"1","369:	learn: 0.0813454	total: 331ms	remaining: 563ms
+"
+"1","370:	learn: 0.0812816	total: 332ms	remaining: 563ms
+"
+"1","371:	learn: 0.0811961	total: 334ms	remaining: 564ms
+"
+"1","372:	learn: 0.0810416	total: 336ms	remaining: 564ms
+"
+"1","373:	learn: 0.0809276	total: 337ms	remaining: 565ms
+"
+"1","374:	learn: 0.0808713	total: 339ms	remaining: 566ms
+"
+"1","375:	learn: 0.0808226	total: 340ms	remaining: 565ms
+"
+"1","376:	learn: 0.0807296	total: 342ms	remaining: 566ms
+"
+"1","377:	learn: 0.0806571	total: 344ms	remaining: 566ms
+"
+"1","378:	learn: 0.0805748	total: 345ms	remaining: 566ms
+"
+"1","379:	learn: 0.0805225	total: 346ms	remaining: 564ms
+"
+"1","380:	learn: 0.0804704	total: 347ms	remaining: 563ms
+"
+"1","381:	learn: 0.0804378	total: 347ms	remaining: 562ms
+"
+"1","382:	learn: 0.0803472	total: 348ms	remaining: 561ms
+"
+"1","383:	learn: 0.0802381	total: 349ms	remaining: 560ms
+"
+"1","384:	learn: 0.0801551	total: 350ms	remaining: 559ms
+"
+"1","385:	learn: 0.0800621	total: 350ms	remaining: 557ms
+"
+"1","386:	learn: 0.0799426	total: 351ms	remaining: 556ms
+"
+"1","387:	learn: 0.0798659	total: 352ms	remaining: 555ms
+"
+"1","388:	learn: 0.0797628	total: 352ms	remaining: 554ms
+"
+"1","389:	learn: 0.0796834	total: 353ms	remaining: 552ms
+"
+"1","390:	learn: 0.0796064	total: 354ms	remaining: 551ms
+"
+"1","391:	learn: 0.0795530	total: 355ms	remaining: 550ms
+"
+"1","392:	learn: 0.0794534	total: 356ms	remaining: 549ms
+"
+"1","393:	learn: 0.0793927	total: 356ms	remaining: 548ms
+"
+"1","394:	learn: 0.0792974	total: 357ms	remaining: 547ms
+"
+"1","395:	learn: 0.0792441	total: 358ms	remaining: 547ms
+"
+"1","396:	learn: 0.0791038	total: 359ms	remaining: 546ms
+"
+"1","397:	learn: 0.0790283	total: 360ms	remaining: 544ms
+"
+"1","398:	learn: 0.0789382	total: 361ms	remaining: 543ms
+"
+"1","399:	learn: 0.0788502	total: 361ms	remaining: 542ms
+"
+"1","400:	learn: 0.0787804	total: 362ms	remaining: 541ms
+"
+"1","401:	learn: 0.0787282	total: 363ms	remaining: 540ms
+"
+"1","402:	learn: 0.0786314	total: 364ms	remaining: 539ms
+"
+"1","403:	learn: 0.0785819	total: 364ms	remaining: 538ms
+"
+"1","404:	learn: 0.0785554	total: 365ms	remaining: 537ms
+"
+"1","405:	learn: 0.0784552	total: 366ms	remaining: 535ms
+"
+"1","406:	learn: 0.0784007	total: 367ms	remaining: 535ms
+"
+"1","407:	learn: 0.0782846	total: 368ms	remaining: 534ms
+"
+"1","408:	learn: 0.0781669	total: 369ms	remaining: 534ms
+"
+"1","409:	learn: 0.0780874	total: 370ms	remaining: 533ms
+"
+"1","410:	learn: 0.0780210	total: 371ms	remaining: 532ms
+"
+"1","411:	learn: 0.0779585	total: 372ms	remaining: 531ms
+"
+"1","412:	learn: 0.0778235	total: 373ms	remaining: 530ms
+"
+"1","413:	learn: 0.0777699	total: 374ms	remaining: 530ms
+"
+"1","414:	learn: 0.0776882	total: 376ms	remaining: 529ms
+"
+"1","415:	learn: 0.0776579	total: 377ms	remaining: 529ms
+"
+"1","416:	learn: 0.0775715	total: 378ms	remaining: 528ms
+"
+"1","417:	learn: 0.0774403	total: 379ms	remaining: 527ms
+"
+"1","418:	learn: 0.0773783	total: 379ms	remaining: 526ms
+"
+"1","419:	learn: 0.0772133	total: 380ms	remaining: 525ms
+"
+"1","420:	learn: 0.0770732	total: 381ms	remaining: 524ms
+"
+"1","421:	learn: 0.0770001	total: 382ms	remaining: 523ms
+"
+"1","422:	learn: 0.0769187	total: 383ms	remaining: 522ms
+"
+"1","423:	learn: 0.0768375	total: 384ms	remaining: 521ms
+"
+"1","424:	learn: 0.0767742	total: 384ms	remaining: 520ms
+"
+"1","425:	learn: 0.0766572	total: 385ms	remaining: 519ms
+"
+"1","426:	learn: 0.0766049	total: 386ms	remaining: 518ms
+"
+"1","427:	learn: 0.0765571	total: 387ms	remaining: 517ms
+"
+"1","428:	learn: 0.0764659	total: 388ms	remaining: 516ms
+"
+"1","429:	learn: 0.0763473	total: 389ms	remaining: 515ms
+"
+"1","430:	learn: 0.0762624	total: 390ms	remaining: 515ms
+"
+"1","431:	learn: 0.0761442	total: 391ms	remaining: 514ms
+"
+"1","432:	learn: 0.0760937	total: 392ms	remaining: 514ms
+"
+"1","433:	learn: 0.0760056	total: 393ms	remaining: 513ms
+"
+"1","434:	learn: 0.0758838	total: 394ms	remaining: 512ms
+"
+"1","435:	learn: 0.0758206	total: 395ms	remaining: 512ms
+"
+"1","436:	learn: 0.0756730	total: 396ms	remaining: 510ms
+"
+"1","437:	learn: 0.0755328	total: 397ms	remaining: 510ms
+"
+"1","438:	learn: 0.0754807	total: 398ms	remaining: 508ms
+"
+"1","439:	learn: 0.0754122	total: 399ms	remaining: 508ms
+"
+"1","440:	learn: 0.0752944	total: 400ms	remaining: 506ms
+"
+"1","441:	learn: 0.0752360	total: 400ms	remaining: 505ms
+"
+"1","442:	learn: 0.0751492	total: 407ms	remaining: 511ms
+"
+"1","443:	learn: 0.0750867	total: 407ms	remaining: 510ms
+"
+"1","444:	learn: 0.0749553	total: 408ms	remaining: 509ms
+"
+"1","445:	learn: 0.0749303	total: 409ms	remaining: 508ms
+"
+"1","446:	learn: 0.0747786	total: 410ms	remaining: 507ms
+"
+"1","447:	learn: 0.0746823	total: 410ms	remaining: 506ms
+"
+"1","448:	learn: 0.0745742	total: 411ms	remaining: 505ms
+"
+"1","449:	learn: 0.0745092	total: 412ms	remaining: 503ms
+"
+"1","450:	learn: 0.0744649	total: 413ms	remaining: 502ms
+"
+"1","451:	learn: 0.0743270	total: 413ms	remaining: 501ms
+"
+"1","452:	learn: 0.0741922	total: 414ms	remaining: 500ms
+"
+"1","453:	learn: 0.0741738	total: 415ms	remaining: 499ms
+"
+"1","454:	learn: 0.0741196	total: 416ms	remaining: 498ms
+"
+"1","455:	learn: 0.0740392	total: 416ms	remaining: 497ms
+"
+"1","456:	learn: 0.0739860	total: 417ms	remaining: 496ms
+"
+"1","457:	learn: 0.0738821	total: 418ms	remaining: 495ms
+"
+"1","458:	learn: 0.0738231	total: 420ms	remaining: 495ms
+"
+"1","459:	learn: 0.0737789	total: 420ms	remaining: 494ms
+"
+"1","460:	learn: 0.0737225	total: 421ms	remaining: 492ms
+"
+"1","461:	learn: 0.0736162	total: 422ms	remaining: 492ms
+"
+"1","462:	learn: 0.0735237	total: 423ms	remaining: 491ms
+"
+"1","463:	learn: 0.0734959	total: 425ms	remaining: 491ms
+"
+"1","464:	learn: 0.0734786	total: 426ms	remaining: 490ms
+"
+"1","465:	learn: 0.0734305	total: 427ms	remaining: 490ms
+"
+"1","466:	learn: 0.0733717	total: 428ms	remaining: 489ms
+"
+"1","467:	learn: 0.0733199	total: 429ms	remaining: 488ms
+"
+"1","468:	learn: 0.0732350	total: 430ms	remaining: 487ms
+"
+"1","469:	learn: 0.0731683	total: 431ms	remaining: 485ms
+"
+"1","470:	learn: 0.0730674	total: 431ms	remaining: 484ms
+"
+"1","471:	learn: 0.0729477	total: 432ms	remaining: 483ms
+"
+"1","472:	learn: 0.0728743	total: 433ms	remaining: 482ms
+"
+"1","473:	learn: 0.0728395	total: 434ms	remaining: 481ms
+"
+"1","474:	learn: 0.0727545	total: 434ms	remaining: 480ms
+"
+"1","475:	learn: 0.0726365	total: 435ms	remaining: 479ms
+"
+"1","476:	learn: 0.0725290	total: 436ms	remaining: 478ms
+"
+"1","477:	learn: 0.0724092	total: 437ms	remaining: 477ms
+"
+"1","478:	learn: 0.0723804	total: 437ms	remaining: 476ms
+"
+"1","479:	learn: 0.0723383	total: 438ms	remaining: 475ms
+"
+"1","480:	learn: 0.0722442	total: 439ms	remaining: 473ms
+"
+"1","481:	learn: 0.0721777	total: 439ms	remaining: 472ms
+"
+"1","482:	learn: 0.0720910	total: 440ms	remaining: 471ms
+"
+"1","483:	learn: 0.0719700	total: 441ms	remaining: 470ms
+"
+"1","484:	learn: 0.0719511	total: 442ms	remaining: 469ms
+"
+"1","485:	learn: 0.0719300	total: 442ms	remaining: 468ms
+"
+"1","486:	learn: 0.0718890	total: 443ms	remaining: 467ms
+"
+"1","487:	learn: 0.0717734	total: 444ms	remaining: 466ms
+"
+"1","488:	learn: 0.0717544	total: 445ms	remaining: 465ms
+"
+"1","489:	learn: 0.0716472	total: 445ms	remaining: 464ms
+"
+"1","490:	learn: 0.0715823	total: 446ms	remaining: 462ms
+"
+"1","491:	learn: 0.0715216	total: 447ms	remaining: 461ms
+"
+"1","492:	learn: 0.0714078	total: 448ms	remaining: 460ms
+"
+"1","493:	learn: 0.0713851	total: 448ms	remaining: 459ms
+"
+"1","494:	learn: 0.0713487	total: 449ms	remaining: 458ms
+"
+"1","495:	learn: 0.0712559	total: 450ms	remaining: 457ms
+"
+"1","496:	learn: 0.0711955	total: 451ms	remaining: 456ms
+"
+"1","497:	learn: 0.0711791	total: 451ms	remaining: 455ms
+"
+"1","498:	learn: 0.0710455	total: 452ms	remaining: 454ms
+"
+"1","499:	learn: 0.0709411	total: 453ms	remaining: 453ms
+"
+"1","500:	learn: 0.0708357	total: 453ms	remaining: 452ms
+"
+"1","501:	learn: 0.0708077	total: 454ms	remaining: 450ms
+"
+"1","502:	learn: 0.0707844	total: 455ms	remaining: 449ms
+"
+"1","503:	learn: 0.0707235	total: 455ms	remaining: 448ms
+"
+"1","504:	learn: 0.0705834	total: 456ms	remaining: 447ms
+"
+"1","505:	learn: 0.0705158	total: 457ms	remaining: 446ms
+"
+"1","506:	learn: 0.0704435	total: 457ms	remaining: 445ms
+"
+"1","507:	learn: 0.0703179	total: 458ms	remaining: 444ms
+"
+"1","508:	learn: 0.0702616	total: 459ms	remaining: 443ms
+"
+"1","509:	learn: 0.0701631	total: 460ms	remaining: 442ms
+"
+"1","510:	learn: 0.0700327	total: 460ms	remaining: 441ms
+"
+"1","511:	learn: 0.0699720	total: 461ms	remaining: 440ms
+"
+"1","512:	learn: 0.0698752	total: 462ms	remaining: 439ms
+"
+"1","513:	learn: 0.0698174	total: 463ms	remaining: 438ms
+"
+"1","514:	learn: 0.0697501	total: 463ms	remaining: 436ms
+"
+"1","515:	learn: 0.0696976	total: 464ms	remaining: 435ms
+"
+"1","516:	learn: 0.0696150	total: 465ms	remaining: 434ms
+"
+"1","517:	learn: 0.0695001	total: 466ms	remaining: 433ms
+"
+"1","518:	learn: 0.0694519	total: 467ms	remaining: 433ms
+"
+"1","519:	learn: 0.0693588	total: 468ms	remaining: 432ms
+"
+"1","520:	learn: 0.0692956	total: 469ms	remaining: 431ms
+"
+"1","521:	learn: 0.0692167	total: 470ms	remaining: 430ms
+"
+"1","522:	learn: 0.0691815	total: 471ms	remaining: 429ms
+"
+"1","523:	learn: 0.0691073	total: 471ms	remaining: 428ms
+"
+"1","524:	learn: 0.0690496	total: 472ms	remaining: 427ms
+"
+"1","525:	learn: 0.0689754	total: 473ms	remaining: 426ms
+"
+"1","526:	learn: 0.0689068	total: 474ms	remaining: 425ms
+"
+"1","527:	learn: 0.0688671	total: 475ms	remaining: 424ms
+"
+"1","528:	learn: 0.0688598	total: 475ms	remaining: 423ms
+"
+"1","529:	learn: 0.0688066	total: 476ms	remaining: 422ms
+"
+"1","530:	learn: 0.0687401	total: 477ms	remaining: 421ms
+"
+"1","531:	learn: 0.0687219	total: 478ms	remaining: 420ms
+"
+"1","532:	learn: 0.0686742	total: 478ms	remaining: 419ms
+"
+"1","533:	learn: 0.0686389	total: 480ms	remaining: 419ms
+"
+"1","534:	learn: 0.0685642	total: 481ms	remaining: 418ms
+"
+"1","535:	learn: 0.0684210	total: 481ms	remaining: 417ms
+"
+"1","536:	learn: 0.0683936	total: 482ms	remaining: 415ms
+"
+"1","537:	learn: 0.0683028	total: 483ms	remaining: 414ms
+"
+"1","538:	learn: 0.0682361	total: 483ms	remaining: 413ms
+"
+"1","539:	learn: 0.0681932	total: 484ms	remaining: 412ms
+"
+"1","540:	learn: 0.0681304	total: 485ms	remaining: 411ms
+"
+"1","541:	learn: 0.0680630	total: 486ms	remaining: 410ms
+"
+"1","542:	learn: 0.0679802	total: 486ms	remaining: 409ms
+"
+"1","543:	learn: 0.0678758	total: 487ms	remaining: 408ms
+"
+"1","544:	learn: 0.0677564	total: 488ms	remaining: 407ms
+"
+"1","545:	learn: 0.0676694	total: 489ms	remaining: 406ms
+"
+"1","546:	learn: 0.0675697	total: 489ms	remaining: 405ms
+"
+"1","547:	learn: 0.0674929	total: 490ms	remaining: 404ms
+"
+"1","548:	learn: 0.0674069	total: 491ms	remaining: 403ms
+"
+"1","549:	learn: 0.0673923	total: 492ms	remaining: 402ms
+"
+"1","550:	learn: 0.0673084	total: 493ms	remaining: 401ms
+"
+"1","551:	learn: 0.0671726	total: 493ms	remaining: 400ms
+"
+"1","552:	learn: 0.0671012	total: 494ms	remaining: 399ms
+"
+"1","553:	learn: 0.0670283	total: 495ms	remaining: 398ms
+"
+"1","554:	learn: 0.0669642	total: 496ms	remaining: 397ms
+"
+"1","555:	learn: 0.0668665	total: 496ms	remaining: 396ms
+"
+"1","556:	learn: 0.0667895	total: 497ms	remaining: 395ms
+"
+"1","557:	learn: 0.0666966	total: 498ms	remaining: 394ms
+"
+"1","558:	learn: 0.0666386	total: 498ms	remaining: 393ms
+"
+"1","559:	learn: 0.0665991	total: 499ms	remaining: 392ms
+"
+"1","560:	learn: 0.0665376	total: 500ms	remaining: 391ms
+"
+"1","561:	learn: 0.0664630	total: 501ms	remaining: 390ms
+"
+"1","562:	learn: 0.0663864	total: 501ms	remaining: 389ms
+"
+"1","563:	learn: 0.0663437	total: 502ms	remaining: 388ms
+"
+"1","564:	learn: 0.0663090	total: 503ms	remaining: 387ms
+"
+"1","565:	learn: 0.0662931	total: 503ms	remaining: 386ms
+"
+"1","566:	learn: 0.0662220	total: 504ms	remaining: 385ms
+"
+"1","567:	learn: 0.0661851	total: 506ms	remaining: 385ms
+"
+"1","568:	learn: 0.0661099	total: 507ms	remaining: 384ms
+"
+"1","569:	learn: 0.0660948	total: 508ms	remaining: 383ms
+"
+"1","570:	learn: 0.0659857	total: 508ms	remaining: 382ms
+"
+"1","571:	learn: 0.0659178	total: 509ms	remaining: 381ms
+"
+"1","572:	learn: 0.0658262	total: 510ms	remaining: 380ms
+"
+"1","573:	learn: 0.0657270	total: 511ms	remaining: 379ms
+"
+"1","574:	learn: 0.0656728	total: 511ms	remaining: 378ms
+"
+"1","575:	learn: 0.0656031	total: 512ms	remaining: 377ms
+"
+"1","576:	learn: 0.0655767	total: 513ms	remaining: 376ms
+"
+"1","577:	learn: 0.0654943	total: 514ms	remaining: 375ms
+"
+"1","578:	learn: 0.0654128	total: 514ms	remaining: 374ms
+"
+"1","579:	learn: 0.0653466	total: 515ms	remaining: 373ms
+"
+"1","580:	learn: 0.0653321	total: 516ms	remaining: 372ms
+"
+"1","581:	learn: 0.0652667	total: 517ms	remaining: 371ms
+"
+"1","582:	learn: 0.0651800	total: 517ms	remaining: 370ms
+"
+"1","583:	learn: 0.0651153	total: 518ms	remaining: 369ms
+"
+"1","584:	learn: 0.0650112	total: 519ms	remaining: 368ms
+"
+"1","585:	learn: 0.0649373	total: 520ms	remaining: 367ms
+"
+"1","586:	learn: 0.0648182	total: 520ms	remaining: 366ms
+"
+"1","587:	learn: 0.0647628	total: 521ms	remaining: 365ms
+"
+"1","588:	learn: 0.0646633	total: 522ms	remaining: 364ms
+"
+"1","589:	learn: 0.0645866	total: 523ms	remaining: 363ms
+"
+"1","590:	learn: 0.0645204	total: 523ms	remaining: 362ms
+"
+"1","591:	learn: 0.0644622	total: 524ms	remaining: 361ms
+"
+"1","592:	learn: 0.0644148	total: 525ms	remaining: 360ms
+"
+"1","593:	learn: 0.0643202	total: 525ms	remaining: 359ms
+"
+"1","594:	learn: 0.0642024	total: 526ms	remaining: 358ms
+"
+"1","595:	learn: 0.0641747	total: 527ms	remaining: 357ms
+"
+"1","596:	learn: 0.0640695	total: 527ms	remaining: 356ms
+"
+"1","597:	learn: 0.0639857	total: 528ms	remaining: 355ms
+"
+"1","598:	learn: 0.0639047	total: 529ms	remaining: 354ms
+"
+"1","599:	learn: 0.0638285	total: 530ms	remaining: 353ms
+"
+"1","600:	learn: 0.0637689	total: 530ms	remaining: 352ms
+"
+"1","601:	learn: 0.0637153	total: 531ms	remaining: 351ms
+"
+"1","602:	learn: 0.0636277	total: 532ms	remaining: 350ms
+"
+"1","603:	learn: 0.0635809	total: 533ms	remaining: 349ms
+"
+"1","604:	learn: 0.0635225	total: 533ms	remaining: 348ms
+"
+"1","605:	learn: 0.0634674	total: 534ms	remaining: 347ms
+"
+"1","606:	learn: 0.0634113	total: 535ms	remaining: 346ms
+"
+"1","607:	learn: 0.0633436	total: 535ms	remaining: 345ms
+"
+"1","608:	learn: 0.0633289	total: 536ms	remaining: 344ms
+"
+"1","609:	learn: 0.0632550	total: 537ms	remaining: 343ms
+"
+"1","610:	learn: 0.0631728	total: 537ms	remaining: 342ms
+"
+"1","611:	learn: 0.0630994	total: 538ms	remaining: 341ms
+"
+"1","612:	learn: 0.0630462	total: 539ms	remaining: 340ms
+"
+"1","613:	learn: 0.0629937	total: 540ms	remaining: 339ms
+"
+"1","614:	learn: 0.0629373	total: 540ms	remaining: 338ms
+"
+"1","615:	learn: 0.0628879	total: 541ms	remaining: 337ms
+"
+"1","616:	learn: 0.0628432	total: 542ms	remaining: 337ms
+"
+"1","617:	learn: 0.0627174	total: 543ms	remaining: 336ms
+"
+"1","618:	learn: 0.0626567	total: 544ms	remaining: 335ms
+"
+"1","619:	learn: 0.0625883	total: 545ms	remaining: 334ms
+"
+"1","620:	learn: 0.0625010	total: 546ms	remaining: 333ms
+"
+"1","621:	learn: 0.0624319	total: 546ms	remaining: 332ms
+"
+"1","622:	learn: 0.0623694	total: 547ms	remaining: 331ms
+"
+"1","623:	learn: 0.0623147	total: 547ms	remaining: 330ms
+"
+"1","624:	learn: 0.0622401	total: 548ms	remaining: 329ms
+"
+"1","625:	learn: 0.0621771	total: 549ms	remaining: 328ms
+"
+"1","626:	learn: 0.0621227	total: 550ms	remaining: 327ms
+"
+"1","627:	learn: 0.0620039	total: 551ms	remaining: 326ms
+"
+"1","628:	learn: 0.0619546	total: 551ms	remaining: 325ms
+"
+"1","629:	learn: 0.0619076	total: 552ms	remaining: 324ms
+"
+"1","630:	learn: 0.0618225	total: 553ms	remaining: 323ms
+"
+"1","631:	learn: 0.0618116	total: 554ms	remaining: 322ms
+"
+"1","632:	learn: 0.0617608	total: 554ms	remaining: 321ms
+"
+"1","633:	learn: 0.0617190	total: 555ms	remaining: 320ms
+"
+"1","634:	learn: 0.0616634	total: 556ms	remaining: 319ms
+"
+"1","635:	learn: 0.0615387	total: 556ms	remaining: 318ms
+"
+"1","636:	learn: 0.0615116	total: 557ms	remaining: 318ms
+"
+"1","637:	learn: 0.0614828	total: 558ms	remaining: 317ms
+"
+"1","638:	learn: 0.0614248	total: 559ms	remaining: 316ms
+"
+"1","639:	learn: 0.0613732	total: 560ms	remaining: 315ms
+"
+"1","640:	learn: 0.0613252	total: 561ms	remaining: 314ms
+"
+"1","641:	learn: 0.0612775	total: 561ms	remaining: 313ms
+"
+"1","642:	learn: 0.0611965	total: 562ms	remaining: 312ms
+"
+"1","643:	learn: 0.0611735	total: 563ms	remaining: 311ms
+"
+"1","644:	learn: 0.0611285	total: 564ms	remaining: 310ms
+"
+"1","645:	learn: 0.0610544	total: 565ms	remaining: 309ms
+"
+"1","646:	learn: 0.0609753	total: 566ms	remaining: 309ms
+"
+"1","647:	learn: 0.0609346	total: 566ms	remaining: 308ms
+"
+"1","648:	learn: 0.0608956	total: 567ms	remaining: 307ms
+"
+"1","649:	learn: 0.0608631	total: 568ms	remaining: 306ms
+"
+"1","650:	learn: 0.0607767	total: 569ms	remaining: 305ms
+"
+"1","651:	learn: 0.0606957	total: 570ms	remaining: 304ms
+"
+"1","652:	learn: 0.0606541	total: 572ms	remaining: 304ms
+"
+"1","653:	learn: 0.0605998	total: 573ms	remaining: 303ms
+"
+"1","654:	learn: 0.0605670	total: 574ms	remaining: 302ms
+"
+"1","655:	learn: 0.0605488	total: 575ms	remaining: 302ms
+"
+"1","656:	learn: 0.0604576	total: 576ms	remaining: 301ms
+"
+"1","657:	learn: 0.0604201	total: 577ms	remaining: 300ms
+"
+"1","658:	learn: 0.0603798	total: 578ms	remaining: 299ms
+"
+"1","659:	learn: 0.0603515	total: 579ms	remaining: 299ms
+"
+"1","660:	learn: 0.0602660	total: 580ms	remaining: 298ms
+"
+"1","661:	learn: 0.0601826	total: 581ms	remaining: 297ms
+"
+"1","662:	learn: 0.0600312	total: 582ms	remaining: 296ms
+"
+"1","663:	learn: 0.0599807	total: 583ms	remaining: 295ms
+"
+"1","664:	learn: 0.0598720	total: 584ms	remaining: 294ms
+"
+"1","665:	learn: 0.0598354	total: 585ms	remaining: 293ms
+"
+"1","666:	learn: 0.0598140	total: 586ms	remaining: 292ms
+"
+"1","667:	learn: 0.0597976	total: 587ms	remaining: 292ms
+"
+"1","668:	learn: 0.0597227	total: 588ms	remaining: 291ms
+"
+"1","669:	learn: 0.0596692	total: 589ms	remaining: 290ms
+"
+"1","670:	learn: 0.0595371	total: 590ms	remaining: 289ms
+"
+"1","671:	learn: 0.0595060	total: 591ms	remaining: 288ms
+"
+"1","672:	learn: 0.0594650	total: 592ms	remaining: 287ms
+"
+"1","673:	learn: 0.0594363	total: 592ms	remaining: 287ms
+"
+"1","674:	learn: 0.0593617	total: 593ms	remaining: 286ms
+"
+"1","675:	learn: 0.0592908	total: 594ms	remaining: 285ms
+"
+"1","676:	learn: 0.0592077	total: 595ms	remaining: 284ms
+"
+"1","677:	learn: 0.0591788	total: 596ms	remaining: 283ms
+"
+"1","678:	learn: 0.0591258	total: 597ms	remaining: 282ms
+"
+"1","679:	learn: 0.0590798	total: 598ms	remaining: 281ms
+"
+"1","680:	learn: 0.0590225	total: 599ms	remaining: 280ms
+"
+"1","681:	learn: 0.0589965	total: 599ms	remaining: 279ms
+"
+"1","682:	learn: 0.0589806	total: 600ms	remaining: 278ms
+"
+"1","683:	learn: 0.0589208	total: 601ms	remaining: 277ms
+"
+"1","684:	learn: 0.0588988	total: 601ms	remaining: 277ms
+"
+"1","685:	learn: 0.0588464	total: 602ms	remaining: 276ms
+"
+"1","686:	learn: 0.0587912	total: 603ms	remaining: 275ms
+"
+"1","687:	learn: 0.0587687	total: 604ms	remaining: 274ms
+"
+"1","688:	learn: 0.0586822	total: 604ms	remaining: 273ms
+"
+"1","689:	learn: 0.0586401	total: 605ms	remaining: 272ms
+"
+"1","690:	learn: 0.0585645	total: 606ms	remaining: 271ms
+"
+"1","691:	learn: 0.0585033	total: 607ms	remaining: 270ms
+"
+"1","692:	learn: 0.0584798	total: 608ms	remaining: 269ms
+"
+"1","693:	learn: 0.0584461	total: 609ms	remaining: 268ms
+"
+"1","694:	learn: 0.0584146	total: 610ms	remaining: 267ms
+"
+"1","695:	learn: 0.0583555	total: 610ms	remaining: 267ms
+"
+"1","696:	learn: 0.0582730	total: 611ms	remaining: 266ms
+"
+"1","697:	learn: 0.0581884	total: 611ms	remaining: 265ms
+"
+"1","698:	learn: 0.0581098	total: 613ms	remaining: 264ms
+"
+"1","699:	learn: 0.0580674	total: 614ms	remaining: 263ms
+"
+"1","700:	learn: 0.0580083	total: 615ms	remaining: 262ms
+"
+"1","701:	learn: 0.0579459	total: 616ms	remaining: 262ms
+"
+"1","702:	learn: 0.0578634	total: 617ms	remaining: 261ms
+"
+"1","703:	learn: 0.0578001	total: 618ms	remaining: 260ms
+"
+"1","704:	learn: 0.0576998	total: 619ms	remaining: 259ms
+"
+"1","705:	learn: 0.0575737	total: 619ms	remaining: 258ms
+"
+"1","706:	learn: 0.0575579	total: 620ms	remaining: 257ms
+"
+"1","707:	learn: 0.0575493	total: 621ms	remaining: 256ms
+"
+"1","708:	learn: 0.0574679	total: 622ms	remaining: 255ms
+"
+"1","709:	learn: 0.0573985	total: 622ms	remaining: 254ms
+"
+"1","710:	learn: 0.0573903	total: 624ms	remaining: 253ms
+"
+"1","711:	learn: 0.0573516	total: 625ms	remaining: 253ms
+"
+"1","712:	learn: 0.0573017	total: 625ms	remaining: 252ms
+"
+"1","713:	learn: 0.0572822	total: 627ms	remaining: 251ms
+"
+"1","714:	learn: 0.0572539	total: 627ms	remaining: 250ms
+"
+"1","715:	learn: 0.0571561	total: 628ms	remaining: 249ms
+"
+"1","716:	learn: 0.0571041	total: 629ms	remaining: 248ms
+"
+"1","717:	learn: 0.0570579	total: 630ms	remaining: 248ms
+"
+"1","718:	learn: 0.0570303	total: 631ms	remaining: 247ms
+"
+"1","719:	learn: 0.0569715	total: 632ms	remaining: 246ms
+"
+"1","720:	learn: 0.0569603	total: 633ms	remaining: 245ms
+"
+"1","721:	learn: 0.0568941	total: 634ms	remaining: 244ms
+"
+"1","722:	learn: 0.0568547	total: 635ms	remaining: 243ms
+"
+"1","723:	learn: 0.0567902	total: 636ms	remaining: 242ms
+"
+"1","724:	learn: 0.0566847	total: 637ms	remaining: 241ms
+"
+"1","725:	learn: 0.0566340	total: 638ms	remaining: 241ms
+"
+"1","726:	learn: 0.0565615	total: 639ms	remaining: 240ms
+"
+"1","727:	learn: 0.0565271	total: 639ms	remaining: 239ms
+"
+"1","728:	learn: 0.0564475	total: 640ms	remaining: 238ms
+"
+"1","729:	learn: 0.0564033	total: 641ms	remaining: 237ms
+"
+"1","730:	learn: 0.0563774	total: 642ms	remaining: 236ms
+"
+"1","731:	learn: 0.0563114	total: 643ms	remaining: 235ms
+"
+"1","732:	learn: 0.0562413	total: 644ms	remaining: 235ms
+"
+"1","733:	learn: 0.0561961	total: 645ms	remaining: 234ms
+"
+"1","734:	learn: 0.0561679	total: 646ms	remaining: 233ms
+"
+"1","735:	learn: 0.0561449	total: 646ms	remaining: 232ms
+"
+"1","736:	learn: 0.0560876	total: 647ms	remaining: 231ms
+"
+"1","737:	learn: 0.0560443	total: 648ms	remaining: 230ms
+"
+"1","738:	learn: 0.0560100	total: 649ms	remaining: 229ms
+"
+"1","739:	learn: 0.0559378	total: 649ms	remaining: 228ms
+"
+"1","740:	learn: 0.0558927	total: 650ms	remaining: 227ms
+"
+"1","741:	learn: 0.0558737	total: 651ms	remaining: 226ms
+"
+"1","742:	learn: 0.0558075	total: 652ms	remaining: 225ms
+"
+"1","743:	learn: 0.0557007	total: 652ms	remaining: 224ms
+"
+"1","744:	learn: 0.0556858	total: 653ms	remaining: 224ms
+"
+"1","745:	learn: 0.0556408	total: 654ms	remaining: 223ms
+"
+"1","746:	learn: 0.0555864	total: 654ms	remaining: 222ms
+"
+"1","747:	learn: 0.0554970	total: 655ms	remaining: 221ms
+"
+"1","748:	learn: 0.0554121	total: 656ms	remaining: 220ms
+"
+"1","749:	learn: 0.0553472	total: 657ms	remaining: 219ms
+"
+"1","750:	learn: 0.0553149	total: 657ms	remaining: 218ms
+"
+"1","751:	learn: 0.0552762	total: 658ms	remaining: 217ms
+"
+"1","752:	learn: 0.0552660	total: 659ms	remaining: 216ms
+"
+"1","753:	learn: 0.0551918	total: 660ms	remaining: 215ms
+"
+"1","754:	learn: 0.0551019	total: 661ms	remaining: 214ms
+"
+"1","755:	learn: 0.0550525	total: 661ms	remaining: 213ms
+"
+"1","756:	learn: 0.0549947	total: 662ms	remaining: 213ms
+"
+"1","757:	learn: 0.0549416	total: 664ms	remaining: 212ms
+"
+"1","758:	learn: 0.0548477	total: 665ms	remaining: 211ms
+"
+"1","759:	learn: 0.0547581	total: 666ms	remaining: 210ms
+"
+"1","760:	learn: 0.0547418	total: 667ms	remaining: 209ms
+"
+"1","761:	learn: 0.0547046	total: 668ms	remaining: 209ms
+"
+"1","762:	learn: 0.0546616	total: 668ms	remaining: 208ms
+"
+"1","763:	learn: 0.0545546	total: 669ms	remaining: 207ms
+"
+"1","764:	learn: 0.0544614	total: 670ms	remaining: 206ms
+"
+"1","765:	learn: 0.0544515	total: 670ms	remaining: 205ms
+"
+"1","766:	learn: 0.0543920	total: 671ms	remaining: 204ms
+"
+"1","767:	learn: 0.0543183	total: 672ms	remaining: 203ms
+"
+"1","768:	learn: 0.0542580	total: 673ms	remaining: 202ms
+"
+"1","769:	learn: 0.0542260	total: 673ms	remaining: 201ms
+"
+"1","770:	learn: 0.0541827	total: 674ms	remaining: 200ms
+"
+"1","771:	learn: 0.0541089	total: 675ms	remaining: 199ms
+"
+"1","772:	learn: 0.0540588	total: 675ms	remaining: 198ms
+"
+"1","773:	learn: 0.0540421	total: 676ms	remaining: 197ms
+"
+"1","774:	learn: 0.0539761	total: 677ms	remaining: 197ms
+"
+"1","775:	learn: 0.0539139	total: 678ms	remaining: 196ms
+"
+"1","776:	learn: 0.0538752	total: 678ms	remaining: 195ms
+"
+"1","777:	learn: 0.0538626	total: 679ms	remaining: 194ms
+"
+"1","778:	learn: 0.0538071	total: 680ms	remaining: 193ms
+"
+"1","779:	learn: 0.0537653	total: 680ms	remaining: 192ms
+"
+"1","780:	learn: 0.0536932	total: 681ms	remaining: 191ms
+"
+"1","781:	learn: 0.0536374	total: 682ms	remaining: 190ms
+"
+"1","782:	learn: 0.0535798	total: 682ms	remaining: 189ms
+"
+"1","783:	learn: 0.0535173	total: 683ms	remaining: 188ms
+"
+"1","784:	learn: 0.0534393	total: 684ms	remaining: 187ms
+"
+"1","785:	learn: 0.0533786	total: 685ms	remaining: 186ms
+"
+"1","786:	learn: 0.0533531	total: 685ms	remaining: 185ms
+"
+"1","787:	learn: 0.0532919	total: 686ms	remaining: 185ms
+"
+"1","788:	learn: 0.0532049	total: 687ms	remaining: 184ms
+"
+"1","789:	learn: 0.0531175	total: 687ms	remaining: 183ms
+"
+"1","790:	learn: 0.0530632	total: 688ms	remaining: 182ms
+"
+"1","791:	learn: 0.0529732	total: 689ms	remaining: 181ms
+"
+"1","792:	learn: 0.0528914	total: 689ms	remaining: 180ms
+"
+"1","793:	learn: 0.0528559	total: 690ms	remaining: 179ms
+"
+"1","794:	learn: 0.0527892	total: 691ms	remaining: 178ms
+"
+"1","795:	learn: 0.0527197	total: 692ms	remaining: 177ms
+"
+"1","796:	learn: 0.0526945	total: 692ms	remaining: 176ms
+"
+"1","797:	learn: 0.0526416	total: 693ms	remaining: 175ms
+"
+"1","798:	learn: 0.0525951	total: 694ms	remaining: 175ms
+"
+"1","799:	learn: 0.0525442	total: 695ms	remaining: 174ms
+"
+"1","800:	learn: 0.0524834	total: 696ms	remaining: 173ms
+"
+"1","801:	learn: 0.0524287	total: 696ms	remaining: 172ms
+"
+"1","802:	learn: 0.0524095	total: 697ms	remaining: 171ms
+"
+"1","803:	learn: 0.0523535	total: 698ms	remaining: 170ms
+"
+"1","804:	learn: 0.0523037	total: 699ms	remaining: 169ms
+"
+"1","805:	learn: 0.0522391	total: 699ms	remaining: 168ms
+"
+"1","806:	learn: 0.0521678	total: 700ms	remaining: 167ms
+"
+"1","807:	learn: 0.0521139	total: 701ms	remaining: 167ms
+"
+"1","808:	learn: 0.0520486	total: 702ms	remaining: 166ms
+"
+"1","809:	learn: 0.0519999	total: 702ms	remaining: 165ms
+"
+"1","810:	learn: 0.0519348	total: 703ms	remaining: 164ms
+"
+"1","811:	learn: 0.0519035	total: 704ms	remaining: 163ms
+"
+"1","812:	learn: 0.0518615	total: 705ms	remaining: 162ms
+"
+"1","813:	learn: 0.0518094	total: 705ms	remaining: 161ms
+"
+"1","814:	learn: 0.0517488	total: 706ms	remaining: 160ms
+"
+"1","815:	learn: 0.0516767	total: 706ms	remaining: 159ms
+"
+"1","816:	learn: 0.0516409	total: 707ms	remaining: 158ms
+"
+"1","817:	learn: 0.0515474	total: 708ms	remaining: 157ms
+"
+"1","818:	learn: 0.0514672	total: 709ms	remaining: 157ms
+"
+"1","819:	learn: 0.0514239	total: 710ms	remaining: 156ms
+"
+"1","820:	learn: 0.0513830	total: 711ms	remaining: 155ms
+"
+"1","821:	learn: 0.0513224	total: 712ms	remaining: 154ms
+"
+"1","822:	learn: 0.0512737	total: 712ms	remaining: 153ms
+"
+"1","823:	learn: 0.0512506	total: 713ms	remaining: 152ms
+"
+"1","824:	learn: 0.0511873	total: 714ms	remaining: 151ms
+"
+"1","825:	learn: 0.0511770	total: 715ms	remaining: 151ms
+"
+"1","826:	learn: 0.0511332	total: 716ms	remaining: 150ms
+"
+"1","827:	learn: 0.0511143	total: 717ms	remaining: 149ms
+"
+"1","828:	learn: 0.0510378	total: 718ms	remaining: 148ms
+"
+"1","829:	learn: 0.0509877	total: 719ms	remaining: 147ms
+"
+"1","830:	learn: 0.0509449	total: 719ms	remaining: 146ms
+"
+"1","831:	learn: 0.0509202	total: 720ms	remaining: 145ms
+"
+"1","832:	learn: 0.0508996	total: 722ms	remaining: 145ms
+"
+"1","833:	learn: 0.0508661	total: 724ms	remaining: 144ms
+"
+"1","834:	learn: 0.0507801	total: 724ms	remaining: 143ms
+"
+"1","835:	learn: 0.0507408	total: 725ms	remaining: 142ms
+"
+"1","836:	learn: 0.0506957	total: 726ms	remaining: 141ms
+"
+"1","837:	learn: 0.0506761	total: 727ms	remaining: 140ms
+"
+"1","838:	learn: 0.0506626	total: 728ms	remaining: 140ms
+"
+"1","839:	learn: 0.0506115	total: 729ms	remaining: 139ms
+"
+"1","840:	learn: 0.0505896	total: 729ms	remaining: 138ms
+"
+"1","841:	learn: 0.0505437	total: 730ms	remaining: 137ms
+"
+"1","842:	learn: 0.0504654	total: 731ms	remaining: 136ms
+"
+"1","843:	learn: 0.0504250	total: 732ms	remaining: 135ms
+"
+"1","844:	learn: 0.0503498	total: 733ms	remaining: 134ms
+"
+"1","845:	learn: 0.0502850	total: 734ms	remaining: 134ms
+"
+"1","846:	learn: 0.0502258	total: 734ms	remaining: 133ms
+"
+"1","847:	learn: 0.0501743	total: 735ms	remaining: 132ms
+"
+"1","848:	learn: 0.0501302	total: 736ms	remaining: 131ms
+"
+"1","849:	learn: 0.0501283	total: 736ms	remaining: 130ms
+"
+"1","850:	learn: 0.0500788	total: 737ms	remaining: 129ms
+"
+"1","851:	learn: 0.0500548	total: 738ms	remaining: 128ms
+"
+"1","852:	learn: 0.0499992	total: 739ms	remaining: 127ms
+"
+"1","853:	learn: 0.0499752	total: 739ms	remaining: 126ms
+"
+"1","854:	learn: 0.0499295	total: 740ms	remaining: 125ms
+"
+"1","855:	learn: 0.0498824	total: 741ms	remaining: 125ms
+"
+"1","856:	learn: 0.0498677	total: 742ms	remaining: 124ms
+"
+"1","857:	learn: 0.0498659	total: 743ms	remaining: 123ms
+"
+"1","858:	learn: 0.0498393	total: 743ms	remaining: 122ms
+"
+"1","859:	learn: 0.0497925	total: 744ms	remaining: 121ms
+"
+"1","860:	learn: 0.0497698	total: 745ms	remaining: 120ms
+"
+"1","861:	learn: 0.0497201	total: 746ms	remaining: 119ms
+"
+"1","862:	learn: 0.0496987	total: 747ms	remaining: 119ms
+"
+"1","863:	learn: 0.0496681	total: 748ms	remaining: 118ms
+"
+"1","864:	learn: 0.0496495	total: 748ms	remaining: 117ms
+"
+"1","865:	learn: 0.0496228	total: 749ms	remaining: 116ms
+"
+"1","866:	learn: 0.0495576	total: 750ms	remaining: 115ms
+"
+"1","867:	learn: 0.0495435	total: 750ms	remaining: 114ms
+"
+"1","868:	learn: 0.0494847	total: 751ms	remaining: 113ms
+"
+"1","869:	learn: 0.0494454	total: 752ms	remaining: 112ms
+"
+"1","870:	learn: 0.0493742	total: 753ms	remaining: 111ms
+"
+"1","871:	learn: 0.0493025	total: 753ms	remaining: 111ms
+"
+"1","872:	learn: 0.0492548	total: 754ms	remaining: 110ms
+"
+"1","873:	learn: 0.0491783	total: 755ms	remaining: 109ms
+"
+"1","874:	learn: 0.0491525	total: 755ms	remaining: 108ms
+"
+"1","875:	learn: 0.0491343	total: 756ms	remaining: 107ms
+"
+"1","876:	learn: 0.0491326	total: 757ms	remaining: 106ms
+"
+"1","877:	learn: 0.0491307	total: 757ms	remaining: 105ms
+"
+"1","878:	learn: 0.0490867	total: 758ms	remaining: 104ms
+"
+"1","879:	learn: 0.0490465	total: 759ms	remaining: 103ms
+"
+"1","880:	learn: 0.0489853	total: 759ms	remaining: 103ms
+"
+"1","881:	learn: 0.0489325	total: 760ms	remaining: 102ms
+"
+"1","882:	learn: 0.0488828	total: 761ms	remaining: 101ms
+"
+"1","883:	learn: 0.0488726	total: 761ms	remaining: 99.9ms
+"
+"1","884:	learn: 0.0488427	total: 762ms	remaining: 99ms
+"
+"1","885:	learn: 0.0487874	total: 763ms	remaining: 98.2ms
+"
+"1","886:	learn: 0.0487484	total: 763ms	remaining: 97.3ms
+"
+"1","887:	learn: 0.0486456	total: 764ms	remaining: 96.4ms
+"
+"1","888:	learn: 0.0486267	total: 765ms	remaining: 95.5ms
+"
+"1","889:	learn: 0.0485510	total: 766ms	remaining: 94.6ms
+"
+"1","890:	learn: 0.0484814	total: 766ms	remaining: 93.7ms
+"
+"1","891:	learn: 0.0484586	total: 767ms	remaining: 92.8ms
+"
+"1","892:	learn: 0.0484485	total: 768ms	remaining: 92ms
+"
+"1","893:	learn: 0.0484025	total: 768ms	remaining: 91.1ms
+"
+"1","894:	learn: 0.0483831	total: 769ms	remaining: 90.2ms
+"
+"1","895:	learn: 0.0483075	total: 770ms	remaining: 89.3ms
+"
+"1","896:	learn: 0.0483059	total: 770ms	remaining: 88.4ms
+"
+"1","897:	learn: 0.0482498	total: 771ms	remaining: 87.6ms
+"
+"1","898:	learn: 0.0481919	total: 772ms	remaining: 86.7ms
+"
+"1","899:	learn: 0.0481471	total: 772ms	remaining: 85.8ms
+"
+"1","900:	learn: 0.0481455	total: 773ms	remaining: 84.9ms
+"
+"1","901:	learn: 0.0480836	total: 774ms	remaining: 84.1ms
+"
+"1","902:	learn: 0.0480470	total: 774ms	remaining: 83.2ms
+"
+"1","903:	learn: 0.0480244	total: 775ms	remaining: 82.3ms
+"
+"1","904:	learn: 0.0479922	total: 776ms	remaining: 81.4ms
+"
+"1","905:	learn: 0.0479604	total: 776ms	remaining: 80.6ms
+"
+"1","906:	learn: 0.0479171	total: 777ms	remaining: 79.7ms
+"
+"1","907:	learn: 0.0479156	total: 778ms	remaining: 78.8ms
+"
+"1","908:	learn: 0.0478711	total: 778ms	remaining: 77.9ms
+"
+"1","909:	learn: 0.0478342	total: 779ms	remaining: 77.1ms
+"
+"1","910:	learn: 0.0477709	total: 780ms	remaining: 76.2ms
+"
+"1","911:	learn: 0.0477205	total: 781ms	remaining: 75.3ms
+"
+"1","912:	learn: 0.0477074	total: 781ms	remaining: 74.4ms
+"
+"1","913:	learn: 0.0476664	total: 782ms	remaining: 73.6ms
+"
+"1","914:	learn: 0.0476319	total: 783ms	remaining: 72.7ms
+"
+"1","915:	learn: 0.0476243	total: 783ms	remaining: 71.8ms
+"
+"1","916:	learn: 0.0475748	total: 784ms	remaining: 71ms
+"
+"1","917:	learn: 0.0475322	total: 785ms	remaining: 70.1ms
+"
+"1","918:	learn: 0.0474805	total: 785ms	remaining: 69.2ms
+"
+"1","919:	learn: 0.0474087	total: 786ms	remaining: 68.4ms
+"
+"1","920:	learn: 0.0473532	total: 787ms	remaining: 67.5ms
+"
+"1","921:	learn: 0.0472886	total: 788ms	remaining: 66.6ms
+"
+"1","922:	learn: 0.0472389	total: 788ms	remaining: 65.8ms
+"
+"1","923:	learn: 0.0471884	total: 789ms	remaining: 64.9ms
+"
+"1","924:	learn: 0.0471312	total: 790ms	remaining: 64ms
+"
+"1","925:	learn: 0.0471069	total: 790ms	remaining: 63.2ms
+"
+"1","926:	learn: 0.0470367	total: 791ms	remaining: 62.3ms
+"
+"1","927:	learn: 0.0469891	total: 792ms	remaining: 61.4ms
+"
+"1","928:	learn: 0.0469505	total: 793ms	remaining: 60.6ms
+"
+"1","929:	learn: 0.0469167	total: 793ms	remaining: 59.7ms
+"
+"1","930:	learn: 0.0468794	total: 794ms	remaining: 58.8ms
+"
+"1","931:	learn: 0.0468334	total: 795ms	remaining: 58ms
+"
+"1","932:	learn: 0.0467871	total: 795ms	remaining: 57.1ms
+"
+"1","933:	learn: 0.0467732	total: 796ms	remaining: 56.2ms
+"
+"1","934:	learn: 0.0467625	total: 797ms	remaining: 55.4ms
+"
+"1","935:	learn: 0.0467414	total: 797ms	remaining: 54.5ms
+"
+"1","936:	learn: 0.0467126	total: 798ms	remaining: 53.6ms
+"
+"1","937:	learn: 0.0466738	total: 799ms	remaining: 52.8ms
+"
+"1","938:	learn: 0.0465798	total: 799ms	remaining: 51.9ms
+"
+"1","939:	learn: 0.0465634	total: 800ms	remaining: 51.1ms
+"
+"1","940:	learn: 0.0465292	total: 801ms	remaining: 50.3ms
+"
+"1","941:	learn: 0.0465278	total: 804ms	remaining: 49.5ms
+"
+"1","942:	learn: 0.0465062	total: 806ms	remaining: 48.7ms
+"
+"1","943:	learn: 0.0464158	total: 807ms	remaining: 47.9ms
+"
+"1","944:	learn: 0.0463651	total: 809ms	remaining: 47.1ms
+"
+"1","945:	learn: 0.0463179	total: 810ms	remaining: 46.2ms
+"
+"1","946:	learn: 0.0462774	total: 811ms	remaining: 45.4ms
+"
+"1","947:	learn: 0.0462011	total: 812ms	remaining: 44.5ms
+"
+"1","948:	learn: 0.0461248	total: 813ms	remaining: 43.7ms
+"
+"1","949:	learn: 0.0461041	total: 814ms	remaining: 42.9ms
+"
+"1","950:	learn: 0.0460887	total: 815ms	remaining: 42ms
+"
+"1","951:	learn: 0.0460667	total: 817ms	remaining: 41.2ms
+"
+"1","952:	learn: 0.0460321	total: 817ms	remaining: 40.3ms
+"
+"1","953:	learn: 0.0460306	total: 818ms	remaining: 39.5ms
+"
+"1","954:	learn: 0.0460041	total: 819ms	remaining: 38.6ms
+"
+"1","955:	learn: 0.0459881	total: 820ms	remaining: 37.8ms
+"
+"1","956:	learn: 0.0459512	total: 822ms	remaining: 36.9ms
+"
+"1","957:	learn: 0.0459248	total: 823ms	remaining: 36.1ms
+"
+"1","958:	learn: 0.0458852	total: 824ms	remaining: 35.2ms
+"
+"1","959:	learn: 0.0458545	total: 825ms	remaining: 34.4ms
+"
+"1","960:	learn: 0.0458165	total: 826ms	remaining: 33.5ms
+"
+"1","961:	learn: 0.0457802	total: 827ms	remaining: 32.7ms
+"
+"1","962:	learn: 0.0457602	total: 828ms	remaining: 31.8ms
+"
+"1","963:	learn: 0.0457255	total: 829ms	remaining: 31ms
+"
+"1","964:	learn: 0.0456942	total: 831ms	remaining: 30.1ms
+"
+"1","965:	learn: 0.0456457	total: 832ms	remaining: 29.3ms
+"
+"1","966:	learn: 0.0456106	total: 834ms	remaining: 28.5ms
+"
+"1","967:	learn: 0.0455453	total: 835ms	remaining: 27.6ms
+"
+"1","968:	learn: 0.0455277	total: 837ms	remaining: 26.8ms
+"
+"1","969:	learn: 0.0455112	total: 837ms	remaining: 25.9ms
+"
+"1","970:	learn: 0.0453980	total: 838ms	remaining: 25ms
+"
+"1","971:	learn: 0.0453867	total: 839ms	remaining: 24.2ms
+"
+"1","972:	learn: 0.0453263	total: 839ms	remaining: 23.3ms
+"
+"1","973:	learn: 0.0452770	total: 840ms	remaining: 22.4ms
+"
+"1","974:	learn: 0.0452332	total: 841ms	remaining: 21.6ms
+"
+"1","975:	learn: 0.0452318	total: 842ms	remaining: 20.7ms
+"
+"1","976:	learn: 0.0452056	total: 843ms	remaining: 19.8ms
+"
+"1","977:	learn: 0.0451639	total: 843ms	remaining: 19ms
+"
+"1","978:	learn: 0.0451262	total: 844ms	remaining: 18.1ms
+"
+"1","979:	learn: 0.0451117	total: 845ms	remaining: 17.2ms
+"
+"1","980:	learn: 0.0450395	total: 845ms	remaining: 16.4ms
+"
+"1","981:	learn: 0.0450347	total: 846ms	remaining: 15.5ms
+"
+"1","982:	learn: 0.0449642	total: 847ms	remaining: 14.6ms
+"
+"1","983:	learn: 0.0449378	total: 847ms	remaining: 13.8ms
+"
+"1","984:	learn: 0.0449072	total: 848ms	remaining: 12.9ms
+"
+"1","985:	learn: 0.0448867	total: 849ms	remaining: 12.1ms
+"
+"1","986:	learn: 0.0448720	total: 849ms	remaining: 11.2ms
+"
+"1","987:	learn: 0.0448297	total: 850ms	remaining: 10.3ms
+"
+"1","988:	learn: 0.0447867	total: 851ms	remaining: 9.46ms
+"
+"1","989:	learn: 0.0447415	total: 852ms	remaining: 8.6ms
+"
+"1","990:	learn: 0.0446897	total: 852ms	remaining: 7.74ms
+"
+"1","991:	learn: 0.0446645	total: 853ms	remaining: 6.88ms
+"
+"1","992:	learn: 0.0446262	total: 854ms	remaining: 6.02ms
+"
+"1","993:	learn: 0.0445448	total: 854ms	remaining: 5.16ms
+"
+"1","994:	learn: 0.0445435	total: 855ms	remaining: 4.3ms
+"
+"1","995:	learn: 0.0444961	total: 856ms	remaining: 3.44ms
+"
+"1","996:	learn: 0.0444701	total: 856ms	remaining: 2.58ms
+"
+"1","997:	learn: 0.0444685	total: 857ms	remaining: 1.72ms
+"
+"1","998:	learn: 0.0444363	total: 858ms	remaining: 858us
+"
+"1","999:	learn: 0.0444076	total: 858ms	remaining: 0us
+"
+"0","# Predict performance"
+"0","train_pred_cat <- catboost.predict(cat_model, train_pool)"
+"0","train_perf_cat = defaultSummary(data.frame(obs = y_train$dietaryMCPD,pred = train_pred_cat))"
+"0","  "
+"0","# Predict performance in Test Sets"
+"0","test_pred_cat <- catboost.predict(cat_model, test_pool)"
+"0","test_perf_cat = defaultSummary(data.frame(obs = y_test$dietaryMCPD, pred = test_pred_cat))"
+"0","print(test_perf_cat)"
+"1","      RMSE "
+"1","  Rsquared "
+"1","       MAE "
+"1","
+"
+"1","0.12119766 "
+"1","0.47421695 "
+"1","0.09372741 "
+"1","
+"

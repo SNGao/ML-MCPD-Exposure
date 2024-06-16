@@ -1,5 +1,4 @@
-## 定义作图函数
-#pdf('/Users/gsn/Desktop/MLR1.pdf')
+## Define Plotting functions
 ActualvsPredict <- function(){
   plot(
     x = fold.test$dietaryMCPD,
@@ -21,5 +20,32 @@ ActualvsPredict <- function(){
     lty = c('solid','dashed')
   )
 }
-#dev.off()
+
+## Define Association functions
+folds <- createFolds(y=data_MCPD$dietaryMCPD, k=K)
+result.train <<- data.frame(RMSE=c(0), R2=c(0),MAE=c(0))
+result.test <<- data.frame(RMSE=c(0), R2=c(0),MAE=c(0))
+for (i in c(1:K)){
+  fold.test <- data_MCPD[folds[[i]],]
+  fold.train <- data_MCPD[-folds[[i]],]
+  
+  model.gam <- lm(dietaryMCPD~., data = fold.train)
+  trainpred <- predict(model.gam,newdata = fold.train)
+  temp.train = defaultSummary(data.frame(obs = fold.train$dietaryMCPD,
+                                         pred = trainpred))
+  result.train <<- rbind(result.train[1:3],c(mean(temp.train[1]),
+                                             mean(temp.train[2]),
+                                             mean(temp.train[3])))
+  
+  # Perfomance in Test sets
+  testpred <- predict(model.gam, newdata = fold.test)
+  
+  temp.test = defaultSummary(data.frame(obs = fold.test$dietaryMCPD,
+                                        pred = testpred))
+  
+  result.test <<- rbind(result.test[1:3],c(mean(temp.test[1]),
+                                           mean(temp.test[2]),
+                                           mean(temp.test[3])))
+}
+
 

@@ -148,19 +148,24 @@ write.csv(data_MCPD, '00_Data/process_data.csv')
 ### Check Non-linearity
 ```{r}
 model.gam1 <- gam(dietaryMCPD~s(CREATININE)+s(HEIGHT)+s(BMI)+s(age)+s(BEANOILintake)
-                             +s(PEANUTOIintake)+s(LARDOILintake)+s(MET)+s(DHPMA_a)
-                             +s(totalenergy)+MARRIAGE+SEX+FAMINCOM5w+CVD+SMOKE          
-                             +HBP+alcohol+education, data = data_MCPD)
+                             + s(PEANUTOIintake)+s(LARDOILintake)+s(MET)+s(DHPMA_a)
+                             + s(totalenergy)+MARRIAGE+SEX+FAMINCOM5w+CVD+SMOKE        
+                             + HBP+alcohol+education
+                             + DHPMA_a:HBP
+                             + DHPMA_a:MARRIAGE, data = data_MCPD)
 summary(model.gam1)
-# CREATININE,age,BEANOILintake,PEANUTOIintake,LARDOILintake,totalenergy shows non-linearity characteristics.
+# CREATININE,age,HEIGHT,BMI don't show non-linearity characteristics.
 ```
 
 ### Re-fit Model
 ```{r}
-model.gam2 <- lm(dietaryMCPD~s(CREATININE)+HEIGHT+BMI+s(age)+s(BEANOILintake)
-                 +s(PEANUTOIintake)+s(LARDOILintake)+MET+DHPMA_a
-                 +s(totalenergy)+MARRIAGE+SEX+FAMINCOM5w+CVD      
-                 +HBP+alcohol+education, data = data_MCPD)
+model.gam2 <- gam(dietaryMCPD~CREATININE+HEIGHT+BMI+age
+                             + s(BEANOILintake) + s(PEANUTOIintake) + s(LARDOILintake) 
+                             + s(MET) + s(DHPMA_a) + s(totalenergy)
+                             + MARRIAGE + SEX + FAMINCOM5w + CVD + SMOKE        
+                             + HBP+alcohol+education
+                             + DHPMA_a:HBP
+                             + DHPMA_a:MARRIAGE, data = data_MCPD)
 summary(model.gam2)
 ```
 

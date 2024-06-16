@@ -18,6 +18,18 @@ library(ParBayesianOptimization)
 source('02_src/defined_functions.R')
 data_MCPD = read.csv('00_Data/process_data.csv') # Generated from STATA files
 data_MCPD$X = NULL
+
+# str(data_MCPD)
+# Define Catogory Variables
+data_MCPD$SEX<-as.factor(data_MCPD$SEX)
+data_MCPD$FAMINCOM5w<-as.factor(data_MCPD$FAMINCOM5w)
+data_MCPD$SMOKE<-as.factor(data_MCPD$SMOKE)
+data_MCPD$MARRIAGE<-as.factor(data_MCPD$MARRIAGE)
+data_MCPD$education<-as.factor(data_MCPD$education)
+data_MCPD$alcohol<-as.factor(data_MCPD$alcohol)
+data_MCPD$CVD<-as.factor(data_MCPD$CVD)
+data_MCPD$db<-as.factor(data_MCPD$db)
+data_MCPD$HBP<-as.factor(data_MCPD$HBP)
 ```
 
 
@@ -25,7 +37,7 @@ data_MCPD$X = NULL
 ```{r}
 # Divide the data into training sets and test sets
 df = data_MCPD
-set.seed(123)
+set.seed(208)
 train_index <- createDataPartition(df$dietaryMCPD, p = 0.7, list = FALSE)
 train_data <- df[train_index, ]
 test_data <- df[-train_index, ]
@@ -38,19 +50,54 @@ y_test <- test_data[1]
 ```
 
 # 03.Model Training and Test
+In this section, we will not perform parameter optimization for multiple linear regression (MLR) and generalized additive models (GAM). This decision is based on prior variable selection conducted in an earlier analysis, where no signs of overfitting were detected. For more complex models, including Random Forest, Support Vector Regression (SVR), XGBoost, LightGBM, and CatBoost, we will employ a random grid search approach (N=100) to optimize their respective hyperparameters. This is necessary due to the intricate nature of their model settings and the need to fine-tune multiple parameters to enhance model performance.
+
 ## 3.1-MLR
+### Model Performance
 ```{r}
-model.mlr <- lm(dietaryMCPD~., data = fold.train)
+colnames(train_data)
+data_MCPD$WEIGHT = NULL
+model.mlr <- lm(dietaryMCPD~. 
+                # + alcohol:DHPMA_a
+                # + DHPMA_a:HEIGHT
+                # + DHPMA_a:CREATININE # Not significant!
+                + DHPMA_a:HBP
+                + DHPMA_a:MARRIAGE, data = train_data)
+summary(model.mlr)
+
+# Make predictions on the training set
+train_pred_mlr <- predict(model.mlr, X_train)
+train_perf_mlr <- defaultSummary(data.frame(obs = y_train$dietaryMCPD, pred = train_pred_mlr))
+
+# Make predictions on the test set
+test_pred_mlr <- predict(model.mlr, X_test)
+test_perf_mlr <- defaultSummary(data.frame(obs = y_test$dietaryMCPD, pred = test_pred_mlr))
+
+print(test_perf_mlr)
 ```
 
 
 ## 3.2-GAM
 ### Train Model and Test
 ```{r}
+model.gam <- gam(dietaryMCPD~CREATININE+HEIGHT+BMI+age
+                             + s(BEANOILintake) + s(PEANUTOIintake) + s(LARDOILintake) 
+                             + s(MET) + s(DHPMA_a) + s(totalenergy)
+                             + MARRIAGE + SEX + FAMINCOM5w + CVD + SMOKE        
+                             + HBP+alcohol+education
+                             + DHPMA_a:HBP
+                             + DHPMA_a:MARRIAGE, data = train_data)
+summary(model.gam)
+# Make predictions on the training set
+train_pred_gam <- predict(model.gam,train_data)
+train_perf_gam <- defaultSummary(data.frame(obs = y_train$dietaryMCPD, pred = train_pred_gam))
 
+# Make predictions on the test set
+test_pred_gam <- predict(model.gam, test_data)
+test_perf_gam <- defaultSummary(data.frame(obs = y_test$dietaryMCPD, pred = test_pred_gam))
+
+print(test_perf_gam)
 ```
-
-
 
 ## 3.3-SVR
 ### Paramater Grid for Search
@@ -65,6 +112,7 @@ param_grid_svr <- list(
 
 ### Random Grid Search
 ```{r, warning=FALSE}
+set.seed(210)
 best_params_svr <- list()
 best_rmse_svr <- Inf
 ctrl <- trainControl(method = "cv", number = 5)
@@ -92,7 +140,7 @@ for (i in 1:100) {  # random parameter combinations
     best_rmse_svr <- rmse
   }
 }
-print(best_rmse_svr^2)
+# print(best_rmse_svr^2)
 ```
 
 ### Model Performance
@@ -132,13 +180,12 @@ param_grid_rf <- list(
 
 ### Random Grid Search
 ```{r}
-set.seed(1)
-
+set.seed(210)
 best_params_rf <- list()
 best_rmse_rf <- Inf
 ctrl <- trainControl(method = "cv", number = 5)
 
-for (i in 1:10) {  # random parameter combinations
+for (i in 1:100) {  # random parameter combinations
   params <- lapply(param_grid_rf, function(x) sample(x, 1))
   
   rf_model <- train(
@@ -161,7 +208,7 @@ for (i in 1:10) {  # random parameter combinations
   }
 }
 
-print(list(best_rmse_rf^2))
+# print(list(best_rmse_rf^2))
 ```
 
 ### Model Performance
@@ -205,8 +252,9 @@ param_grid <- list(
 
 ### Random Grid Search
 ```{r}
-set.seed(1)
+set.seed(210)
 dtrain <- xgb.DMatrix(data = as.matrix(X_train), label = as.matrix(y_train))
+dtest <- xgb.DMatrix(data = as.matrix(X_test), label = as.matrix(y_test))
 
 # Random search by cross-validation
 best_params_xgb <- list()
@@ -235,7 +283,6 @@ for (i in 1:100) {  # Number of random parameter combinations to try
 
 ### Model Performance
 ```{r}
-dtest <- xgb.DMatrix(data = as.matrix(X_test), label = as.matrix(y_test))
 xgb.model <- xgb.train(data = dtrain,
                   params = best_param_xgb,
                   nrounds = best_iter_xgb,
@@ -254,7 +301,6 @@ test_perf_xgb = defaultSummary(data.frame(obs = y_test$dietaryMCPD,
 
 print(test_perf_xgb)
 ```
-
 
 
 ## 3.6-LGBM
@@ -277,14 +323,14 @@ param_grid <- list(
 
 ### Random Grid Search
 ```{r}
-set.seed(1)
+set.seed(210)
 # Create a lgb.Dataset object for train Model
 train_data <- lgb.Dataset(data = as.matrix(X_train), label = as.matrix(y_train))
 
 # Random search by cross-validation
 best_param_lgb <- list()
-best_mse = Inf
-best_iter = 0
+best_mse_lgb = Inf
+best_iter_lgb = 0
 
 for (i in 1:100) {  # Number of random parameter combinations to try
   params <- lapply(param_grid, function(x) sample(x, 1))
@@ -299,14 +345,14 @@ for (i in 1:100) {  # Number of random parameter combinations to try
   )
   mse <- cv_results$record_evals$valid$l2$eval[[cv_results$best_iter]]
   
-  if (mse < best_mse) {
+  if (mse < best_mse_lgb) {
     best_param_lgb <- params
-    best_mse <- mse
-    best_iter <- cv_results$best_iter
+    best_mse_lgb <- mse
+    best_iter_lgb <- cv_results$best_iter
   }
 }
 
-print(list(best_mse, best_iter))
+print(list(best_mse_lgb, best_iter_lgb))
 ```
 
 ### Model Performance
@@ -315,25 +361,24 @@ train_data <- lgb.Dataset(data = as.matrix(X_train), label = as.matrix(y_train))
 
 lgb1 <- lgb.train(data = train_data,
                   params = best_param_lgb,
-                  nrounds = best_iter,
-                  verbose = 1,
+                  nrounds = best_iter_lgb,
+                  verbose = -1,
                   obj = 'regression_l2'
 ) 
 
 # Predict performance
-train_pred_xgb <- predict(lgb1, as.matrix(X_train))
-train_perf_xgb = defaultSummary(data.frame(obs = y_train$dietaryMCPD,pred = trainpred))
+train_pred_lgb <- predict(lgb1, as.matrix(X_train))
+train_perf_lgb = defaultSummary(data.frame(obs = y_train$dietaryMCPD,pred = train_pred_lgb))
   
 # Predict performance in Test Sets
-test_pred_xgb <- predict(lgb1, as.matrix(X_test))
-test_perf_xgb = defaultSummary(data.frame(obs = y_test$dietaryMCPD, pred = testpred))
-print(test_perf_xgb)
+test_pred_lgb <- predict(lgb1, as.matrix(X_test))
+test_perf_lgb = defaultSummary(data.frame(obs = y_test$dietaryMCPD, pred = test_pred_lgb))
+print(test_perf_lgb)
 ```
 
 ## 3.7-Catboost
 ### Paramater Grid for Search
 ```{r}
-set.seed(1)
 library(catboost)
 
 param_grid <- list(
@@ -349,12 +394,12 @@ param_grid <- list(
 
 ### Random Grid Search
 ```{r}
-set.seed(208)
+set.seed(210)
 train_pool <- catboost.load_pool(data = X_train, label = y_train)
 
 # Random search by cross-validation
-best_params <- list()
-best_rmse <- Inf
+best_param_cat <- list()
+best_rmse_cat <- Inf
 
 for (i in 1:100) {  # Number of random parameter combinations to try
   params <- lapply(param_grid, function(x) sample(x, 1))
@@ -366,25 +411,25 @@ for (i in 1:100) {  # Number of random parameter combinations to try
         fold_count = 5,
         early_stopping_rounds = 10
       )
-  })
+  }) # avoid print unrelated information
   
   rmse <- min(cv_results$test.RMSE.mean)
-  print(rmse)
   
-  if (rmse < best_rmse) {
-    best_params <- params
-    best_rmse <- rmse
+  if (rmse < best_rmse_cat) {
+    best_param_cat <- params
+    best_rmse_cat <- rmse
   }
 }
-best_param.cat = best_params
-print(best_rmse^2) # print MSE
+print(best_rmse_cat^2) # print MSE
 ```
 
 ### Model Performance
 ```{r}
 test_pool <- catboost.load_pool(data = X_test, label = y_test)
-cat_model <- catboost.train(train_pool,
-                            params = best_param.cat)
+output <- capture.output({
+  cat_model <- catboost.train(train_pool,
+                              params = best_param_cat)
+}) # avoid print unrelated information
 
 # Predict performance
 train_pred_cat <- catboost.predict(cat_model, train_pool)
@@ -395,7 +440,6 @@ test_pred_cat <- catboost.predict(cat_model, test_pool)
 test_perf_cat = defaultSummary(data.frame(obs = y_test$dietaryMCPD, pred = test_pred_cat))
 print(test_perf_cat)
 ```
-
 
 # 04.Summarize Parameters
 ## Hyper-parameters in different Models
@@ -410,6 +454,50 @@ hyper_para[["cat"]] = best_param.cat
 
 ## Prediction performance in all models
 ```{r}
+result.combined = data.frame(
+           test_perf_mlr,
+           test_perf_gam,
+           test_perf_svr,
+           test_perf_rf,
+           test_perf_xgb,
+           test_perf_lgb,
+           test_perf_cat)
 
+colnames(result.combined) = c('MLR', 'GAM', 'SVR', 'RF', 'XGBoost', 'LightGBM', 'CatBoost')
+
+# which(result.combined[1,] == min(result.combined[1,]))
+# which(result.combined[2,] == max(result.combined[2,]))
+# which(result.combined[3,] == min(result.combined[3,]))
+
+result.combined # 210
+```
+# 05.Variable Importance
+```{r}
+## Single Importance
+VIP_cat = data.frame(cat_model$feature_importances)
+colnames(VIP_cat) = 'FeatureImportance'
+VIP_cat$Variable = row.names(VIP_cat)
+VIP_cat = VIP_cat[order(VIP_cat$FeatureImportance,
+              decreasing = TRUE),]
+VIP_cat
+
+## Interaction Importance
+VIP.tmp = data.frame(cat_model$feature_importances)
+
+VIP_I_cat = data.frame(catboost.get_feature_importance(cat_model, 
+                                            test_pool, 
+                                            type = 'Interaction'))
+colnames(VIP_I_cat) = c('Variable-1', 'Variable-2', 'Score')
+mapping_vector <- setNames(row.names(VIP.tmp), 1:length(row.names(VIP.tmp)))
+
+VIP_I_cat$`Variable-1` <- mapping_vector[as.character(VIP_I_cat$`Variable-1`)]
+VIP_I_cat$`Variable-2` <- mapping_vector[as.character(VIP_I_cat$`Variable-2`)]
+
+
+### Calculate total score (%) of interaction effects
+index_target = c(which(VIP_I_cat$`Variable-1` == 'DHPMA_a'),
+                 which(VIP_I_cat$`Variable-2` == 'DHPMA_a'))
+sum(VIP_I_cat$Score[index_target])
+VIP_I_cat
 ```
 

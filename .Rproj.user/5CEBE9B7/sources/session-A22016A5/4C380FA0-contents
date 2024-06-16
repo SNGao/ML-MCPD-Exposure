@@ -15,490 +15,434 @@ library(gam)
 library(caret)
 
 source('02_src/defined_functions.R')
-data_MCPD = read.csv('00_Data/data_MCPD.csv') # Generated from STATA files
+data_MCPD = read.csv('00_Data/data_MCPD.csv')
 ```
 
-# 02.Fit Model
+# 02.Cross-Validation
+## Results Output
 ```{r}
 Result_total = data.frame(model = c(0),
-                          train_RMSE=c(0), train_R2=c(0),train_MAE=c(0),
-                          test_RMSE=c(0), test_R2=c(0),test_MAE=c(0))
-
+                          train_RMSE=c(0), train_R2=c(0), train_MAE=c(0),
+                          test_RMSE=c(0), test_R2=c(0), test_MAE=c(0))
 K = 5
 ```
 
 ## MLR-1
 ```{r}
 set.seed(208)
-folds <- createFolds(y=data_MCPD$dietaryMCPD, k=K)
-result.train <<- data.frame(RMSE=c(0), R2=c(0),MAE=c(0))
-result.test <<- data.frame(RMSE=c(0), R2=c(0),MAE=c(0))
-for (i in c(1:K)){
-  fold.test <- data_MCPD[folds[[i]],]
-  fold.train <- data_MCPD[-folds[[i]],]
+folds <- createFolds(data_MCPD$dietaryMCPD, k = K)
+
+# Initialize the result data frame
+result.train <- data.frame(RMSE = numeric(K), R2 = numeric(K), MAE = numeric(K))
+result.test <- data.frame(RMSE = numeric(K), R2 = numeric(K), MAE = numeric(K))
+
+for (i in 1:K) {
+  fold.test <- data_MCPD[folds[[i]], ]
+  fold.train <- data_MCPD[-folds[[i]], ]
   
-  model.gam <- lm(dietaryMCPD~., data = fold.train)
-  trainpred <- predict(model.gam,newdata = fold.train)
-  temp.train = defaultSummary(data.frame(obs = fold.train$dietaryMCPD,
-                                         pred = trainpred))
-  result.train <<- rbind(result.train[1:3],c(mean(temp.train[1]),
-                                             mean(temp.train[2]),
-                                             mean(temp.train[3])))
+  # Train model
+  model.mlr <- lm(dietaryMCPD~.
+                  + DHPMA_a:HBP
+                  + DHPMA_a:MARRIAGE, data = fold.train)
   
-  # Perfomance in Test sets
-  testpred <- predict(model.gam, newdata = fold.test)
+  # Performance for training set
+  trainpred <- predict(model.mlr, newdata = fold.train)
+  temp.train <- defaultSummary(data.frame(obs = fold.train$dietaryMCPD, pred = trainpred))
+  result.train[i, ] <- c(temp.train["RMSE"], temp.train["Rsquared"], temp.train["MAE"])
   
-  temp.test = defaultSummary(data.frame(obs = fold.test$dietaryMCPD,
-                                        pred = testpred))
-  
-  result.test <<- rbind(result.test[1:3],c(mean(temp.test[1]),
-                                           mean(temp.test[2]),
-                                           mean(temp.test[3])))
+  # Performance for test set
+  testpred <- predict(model.mlr, newdata = fold.test)
+  temp.test <- defaultSummary(data.frame(obs = fold.test$dietaryMCPD, pred = testpred))
+  result.test[i, ] <- c(temp.test["RMSE"], temp.test["Rsquared"], temp.test["MAE"])
 }
-# mean(result.train[2:(K+1),2])
-# mean(result.test[2:(K+1),2])
 
-# Test Sets
-R2_MLR1 <- result.test[2:(K+1),2]
-RMSE_MLR1 <- result.test[2:(K+1),1]
-MAE_MLR1 <- result.test[2:(K+1),3]
-# Mean performance of train and test sets.
-Result_total[1,1:7] = c('MLR1',mean(result.train[2:(K+1),1]),
-                           mean(result.train[2:(K+1),2]),
-                           mean(result.train[2:(K+1),3]),
-                           mean(result.test[2:(K+1),1]),
-                           mean(result.test[2:(K+1),2]),
-                           mean(result.test[2:(K+1),3]))
+# Extract R2, RMSE, and MAE of the test set
+R2_MLR1 <- result.test$R2
+RMSE_MLR1 <- result.test$RMSE
+MAE_MLR1 <- result.test$MAE
 
-pdf('01_Output_Results/MLR1.pdf')
-ActualvsPredict()
-dev.off()
-data_MCPD$WEIGHT = NULL
-```
-
-## MLR-2
-```{r}
-set.seed(208)
-folds <- createFolds(y=data_MCPD$dietaryMCPD, k=K)
-result.train <<- data.frame(RMSE=c(0), R2=c(0),MAE=c(0))
-result.test <<- data.frame(RMSE=c(0), R2=c(0),MAE=c(0))
-for (i in c(1:K)){
-  fold.test <- data_MCPD[folds[[i]],]
-  fold.train <- data_MCPD[-folds[[i]],]
-  
-  model.gam <- lm(dietaryMCPD~., data = fold.train)
-  
-  trainpred <- predict(model.gam,newdata = fold.train)
-  temp.train = defaultSummary(data.frame(obs = fold.train$dietaryMCPD,
-                                         pred = trainpred))
-  result.train <<- rbind(result.train[1:3],c(mean(temp.train[1]),
-                                             mean(temp.train[2]),
-                                             mean(temp.train[3])))
-  
-  # Test Sets performance
-  testpred <- predict(model.gam, newdata = fold.test)
-  
-  temp.test = defaultSummary(data.frame(obs = fold.test$dietaryMCPD,
-                                        pred = testpred))
-  
-  result.test <<- rbind(result.test[1:3],c(mean(temp.test[1]),
-                                           mean(temp.test[2]),
-                                           mean(temp.test[3])))
-}
-mean(result.train[2:(K+1),2])
-mean(result.test[2:(K+1),2])
-
-R2_MLR2 <- result.test[2:(K+1),2]
-RMSE_MLR2 <- result.test[2:(K+1),1]
-MAE_MLR2 <- result.test[2:(K+1),3]
-
-# Mean performance of train and test sets.
-Result_total[2,1:7] = c('MLR2',mean(result.train[2:(K+1),1]),
-                        mean(result.train[2:(K+1),2]),
-                        mean(result.train[2:(K+1),3]),
-                        mean(result.test[2:(K+1),1]),
-                        mean(result.test[2:(K+1),2]),
-                        mean(result.test[2:(K+1),3]))
-
-pdf('01_Output_Results/MLR2.pdf')
-ActualvsPredict()
-dev.off()
+Result_total[1, ] <- c(
+  'MLR1',
+  mean(result.train$RMSE),
+  mean(result.train$R2),
+  mean(result.train$MAE),
+  mean(result.test$RMSE),
+  mean(result.test$R2),
+  mean(result.test$MAE)
+)
 ```
 
 ## GAM model
 ```{r}
 set.seed(208)
-folds <- createFolds(y=data_MCPD$dietaryMCPD, k=K)
-result.train <<- data.frame(RMSE=c(0), R2=c(0),MAE=c(0))
-result.test <<- data.frame(RMSE=c(0), R2=c(0),MAE=c(0))
-for (i in c(1:K)){
-  fold.test <- data_MCPD[folds[[i]],]
-  fold.train <- data_MCPD[-folds[[i]],]
+folds <- createFolds(data_MCPD$dietaryMCPD, k = K)
+
+# Initialize the result data frame
+result.train <- data.frame(RMSE = numeric(K), R2 = numeric(K), MAE = numeric(K))
+result.test <- data.frame(RMSE = numeric(K), R2 = numeric(K), MAE = numeric(K))
+
+for (i in 1:K) {
+  fold.test <- data_MCPD[folds[[i]], ]
+  fold.train <- data_MCPD[-folds[[i]], ]
   
-  model.gam <- lm(dietaryMCPD~ns(CREATININE)+HEIGHT+BMI+ns(age)+ns(BEANOILintake)
-                  +ns(PEANUTOIintake)+ns(LARDOILintake)+MET+DHPMA_a
-                  +ns(totalenergy)+MARRIAGE+SEX+FAMINCOM5w+CVD      
-                  +HBP+alcohol+education, data = fold.train)
+  # Train model
+  model.gam <- gam(dietaryMCPD~CREATININE+HEIGHT+BMI+age
+                             + s(BEANOILintake) + s(PEANUTOIintake) + s(LARDOILintake) 
+                             + s(MET) + s(DHPMA_a) + s(totalenergy)
+                             + MARRIAGE + SEX + FAMINCOM5w + CVD + SMOKE        
+                             + HBP+alcohol+education
+                             + DHPMA_a:HBP
+                             + DHPMA_a:MARRIAGE, data = fold.train)
   
-  trainpred <- predict(model.gam,newdata = fold.train)
-  temp.train = defaultSummary(data.frame(obs = fold.train$dietaryMCPD,
-                                         pred = trainpred))
-  result.train <<- rbind(result.train[1:3],c(mean(temp.train[1]),
-                                             mean(temp.train[2]),
-                                             mean(temp.train[3])))
+  # Performance for training set
+  trainpred <- predict(model.gam, newdata = fold.train)
+  temp.train <- defaultSummary(data.frame(obs = fold.train$dietaryMCPD, pred = trainpred))
+  result.train[i, ] <- c(temp.train["RMSE"], temp.train["Rsquared"], temp.train["MAE"])
   
-  # Test Sets performance
+  # Performance for test set
   testpred <- predict(model.gam, newdata = fold.test)
-  
-  temp.test = defaultSummary(data.frame(obs = fold.test$dietaryMCPD,
-                                        pred = testpred))
-  
-  result.test <<- rbind(result.test[1:3],c(mean(temp.test[1]),
-                                           mean(temp.test[2]),
-                                           mean(temp.test[3])))
+  temp.test <- defaultSummary(data.frame(obs = fold.test$dietaryMCPD, pred = testpred))
+  result.test[i, ] <- c(temp.test["RMSE"], temp.test["Rsquared"], temp.test["MAE"])
 }
-mean(result.train[2:(K+1),2])
-mean(result.test[2:(K+1),2])
-R2_GAM <- result.test[2:(K+1),2]
-RMSE_GAM <- result.test[2:(K+1),1]
-MAE_GAM <- result.test[2:(K+1),3]
 
-# Mean performance of train and test sets.
-Result_total[3,1:7] = c('GAM',mean(result.train[2:(K+1),1]),
-                        mean(result.train[2:(K+1),2]),
-                        mean(result.train[2:(K+1),3]),
-                        mean(result.test[2:(K+1),1]),
-                        mean(result.test[2:(K+1),2]),
-                        mean(result.test[2:(K+1),3]))
+# Extract R2, RMSE, and MAE of the test set
+R2_GAM <- result.test$R2
+RMSE_GAM <- result.test$RMSE
+MAE_GAM <- result.test$MAE
 
-pdf('01_Output_Results/GAM.pdf')
-ActualvsPredict()
-dev.off()
+Result_total[2, ] <- c(
+  'GAM',
+  mean(result.train$RMSE),
+  mean(result.train$R2),
+  mean(result.train$MAE),
+  mean(result.test$RMSE),
+  mean(result.test$R2),
+  mean(result.test$MAE)
+)
 ```
-
 
 ## SVR model
 ```{r}
-library(e1071)
-set.seed(1) # set.seed(208)
-folds <- createFolds(y=data_MCPD$dietaryMCPD, k=K)
-result.train <<- data.frame(RMSE=c(0), R2=c(0),MAE=c(0))
-result.test <<- data.frame(RMSE=c(0), R2=c(0),MAE=c(0))
-for (i in c(1:K)){
-  fold.test <- data_MCPD[folds[[i]],]
-  fold.train <- data_MCPD[-folds[[i]],]
+set.seed(208)
+folds <- createFolds(data_MCPD$dietaryMCPD, k = K)
+
+# Initialize the result data frame
+result.train <- data.frame(RMSE = numeric(K), R2 = numeric(K), MAE = numeric(K))
+result.test <- data.frame(RMSE = numeric(K), R2 = numeric(K), MAE = numeric(K))
+
+for (i in 1:K) {
+  fold.test <- data_MCPD[folds[[i]], ]
+  fold.train <- data_MCPD[-folds[[i]], ]
   
-  model.svm <- svm(dietaryMCPD~., #kernal = 'radial basis',type = 'eps-regression',
-                   data=fold.train)
+  # Train model
+  model.svm <- svm(dietaryMCPD ~ ., data = fold.train, 
+                   kernel = 'radial', type = 'eps-regression')
   
-  trainpred <- predict(model.svm,newdata = fold.train)
-  temp.train = defaultSummary(data.frame(obs = fold.train$dietaryMCPD,
-                                         pred = trainpred))
-  result.train <<- rbind(result.train[1:3],c(mean(temp.train[1]),
-                                             mean(temp.train[2]),
-                                             mean(temp.train[3])))
+  # Performance for training set
+  trainpred <- predict(model.svm, newdata = fold.train)
+  temp.train <- defaultSummary(data.frame(obs = fold.train$dietaryMCPD, pred = trainpred))
+  result.train[i, ] <- c(temp.train["RMSE"], temp.train["Rsquared"], temp.train["MAE"])
   
-  # Test Sets performance
+  # Performance for test set
   testpred <- predict(model.svm, newdata = fold.test)
-  
-  temp.test = defaultSummary(data.frame(obs = fold.test$dietaryMCPD,
-                                        pred = testpred))
-  
-  result.test <<- rbind(result.test[1:3],c(mean(temp.test[1]),
-                                           mean(temp.test[2]),
-                                           mean(temp.test[3])))
+  temp.test <- defaultSummary(data.frame(obs = fold.test$dietaryMCPD, pred = testpred))
+  result.test[i, ] <- c(temp.test["RMSE"], temp.test["Rsquared"], temp.test["MAE"])
 }
-mean(result.train[2:(K+1),2])
-mean(result.test[2:(K+1),2])
 
-R2_SVR <- result.test[2:(K+1),2]
-RMSE_SVR <- result.test[2:(K+1),1]
-MAE_SVR <- result.test[2:(K+1),3]
+# Extract R2, RMSE, and MAE of the test set
+R2_SVR <- result.test$R2
+RMSE_SVR <- result.test$RMSE
+MAE_SVR <- result.test$MAE
 
-# Mean performance of train and test sets.
-Result_total[4,1:7] = c('SVR',mean(result.train[2:(K+1),1]),
-                        mean(result.train[2:(K+1),2]),
-                        mean(result.train[2:(K+1),3]),
-                        mean(result.test[2:(K+1),1]),
-                        mean(result.test[2:(K+1),2]),
-                        mean(result.test[2:(K+1),3]))
-
-
-pdf('/Users/gsn/Desktop/SVR.pdf')
-ActualvsPredict()
-dev.off()
+Result_total[3, ] <- c(
+  'SVR',
+  mean(result.train$RMSE),
+  mean(result.train$R2),
+  mean(result.train$MAE),
+  mean(result.test$RMSE),
+  mean(result.test$R2),
+  mean(result.test$MAE)
+)
 ```
 
 ## RF Model
 ```{r}
+library(caret)
 library(randomForest)
-set.seed(208)
-folds <- createFolds(y=data_MCPD$dietaryMCPD, k=K)
-result.train <<- data.frame(RMSE=c(0), R2=c(0),MAE=c(0))
-result.test <<- data.frame(RMSE=c(0), R2=c(0),MAE=c(0))
-for (i in c(1:K)){
-  fold.test <- data_MCPD[folds[[i]],]
-  fold.train <- data_MCPD[-folds[[i]],]
-  
-  model.RF <- randomForest(dietaryMCPD~., data=fold.train, importance = TRUE)
-  
-  trainpred <- predict(model.RF,newdata = fold.train)
-  temp.train = defaultSummary(data.frame(obs = fold.train$dietaryMCPD,
-                                         pred = trainpred))
-  result.train <<- rbind(result.train[1:3],c(mean(temp.train[1]),
-                                             mean(temp.train[2]),
-                                             mean(temp.train[3])))
-  
-  # Test Sets performance
-  testpred <- predict(model.RF, newdata = fold.test)
-  
-  temp.test = defaultSummary(data.frame(obs = fold.test$dietaryMCPD,
-                                        pred = testpred))
-  
-  result.test <<- rbind(result.test[1:3],c(mean(temp.test[1]),
-                                           mean(temp.test[2]),
-                                           mean(temp.test[3])))
-}
-mean(result.train[2:(K+1),2])
-mean(result.test[2:(K+1),2])
-R2_RF <- result.test[2:(K+1),2]
-RMSE_RF <- result.test[2:(K+1),1]
-MAE_RF <- result.test[2:(K+1),3]
 
-# Mean performance of train and test sets.
-Result_total[5,1:7] = c('RF',mean(result.train[2:(K+1),1]),
-                        mean(result.train[2:(K+1),2]),
-                        mean(result.train[2:(K+1),3]),
-                        mean(result.test[2:(K+1),1]),
-                        mean(result.test[2:(K+1),2]),
-                        mean(result.test[2:(K+1),3]))
-pdf('01_Output_Results/RF.pdf')
-ActualvsPredict()
-dev.off()
-pdf('01_Output_Results/plot_rf_MSE.pdf', width = 8, height = 6)
-importance(model.RF)
-varImpPlot(model.RF, n.var = 15)
-dev.off()
+set.seed(208)
+folds <- createFolds(y = data_MCPD$dietaryMCPD, k = K)
+
+# Initialize the result data frame
+result.train <- data.frame(RMSE = numeric(K), R2 = numeric(K), MAE = numeric(K))
+result.test <- data.frame(RMSE = numeric(K), R2 = numeric(K), MAE = numeric(K))
+
+for (i in 1:K) {
+  fold.test <- data_MCPD[folds[[i]], ]
+  fold.train <- data_MCPD[-folds[[i]], ]
+  
+  # Train model
+  model.RF <- randomForest(dietaryMCPD ~ ., data = fold.train, importance = TRUE)
+  
+  # Performance for training set
+  trainpred <- predict(model.RF, newdata = fold.train)
+  temp.train <- defaultSummary(data.frame(obs = fold.train$dietaryMCPD, pred = trainpred))
+  result.train[i, ] <- c(temp.train["RMSE"], temp.train["Rsquared"], temp.train["MAE"])
+  
+  # Performance for test set
+  testpred <- predict(model.RF, newdata = fold.test)
+  temp.test <- defaultSummary(data.frame(obs = fold.test$dietaryMCPD, pred = testpred))
+  result.test[i, ] <- c(temp.test["RMSE"], temp.test["Rsquared"], temp.test["MAE"])
+}
+
+# Extract R2, RMSE, and MAE of the test set
+R2_RF <- result.test$R2
+RMSE_RF <- result.test$RMSE
+MAE_RF <- result.test$MAE
+
+Result_total[4, ] <- c(
+  'RF',
+  mean(result.train$RMSE),
+  mean(result.train$R2),
+  mean(result.train$MAE),
+  mean(result.test$RMSE),
+  mean(result.test$R2),
+  mean(result.test$MAE)
+)
 ```
 
 ## LGBM
 ```{r}
 library(lightgbm)
 set.seed(208)
-folds <- createFolds(y=data_MCPD$dietaryMCPD,k=K)
-result.train <<- data.frame(RMSE=c(0), R2=c(0),MAE=c(0))
-result.test <<- data.frame(RMSE=c(0), R2=c(0),MAE=c(0))
+folds <- createFolds(y = data_MCPD$dietaryMCPD, k = K)
 
-for (i in c(1:K)){
-  test <- data_MCPD[folds[[i]],]
-  trains.all <- data_MCPD[-folds[[i]],]
+# Initialize the result data frame
+result.train <- data.frame(RMSE = numeric(K), R2 = numeric(K), MAE = numeric(K))
+result.test <- data.frame(RMSE = numeric(K), R2 = numeric(K), MAE = numeric(K))
+
+for (i in 1:K) {
+  test <- data_MCPD[folds[[i]], ]
+  trains.all <- data_MCPD[-folds[[i]], ]
   
-  trains <- sample(rownames(trains.all), nrow(trains.all)*3/4) # 后者为抽样样本的数量
-  valids <- setdiff(rownames(trains.all), trains) # 获得两个数据集的差值
+  # Build Validation Sample to avoid overfitting
+  train_indices <- sample(rownames(trains.all), size = floor(nrow(trains.all) * 4/5))
+  valid_indices <- setdiff(rownames(trains.all), train_indices)
   
-  data_train <- data_MCPD[trains,]
-  data_valid <- data_MCPD[valids,]
-  data_test <- test
-  sum(duplicated(rownames(data_train), rownames(data_test)))
-  sum(duplicated(rownames(data_valid), rownames(data_test)))
+  data_train <- trains.all[train_indices, ]
+  data_valid <- trains.all[valid_indices, ]
   
-  data_trainx <-data.matrix(data_train[2:dim(data_MCPD)[2]]) 
-  data_trainy <- data.matrix(data_train[1])
+  # Convert data format
+  data_trainx <- data.matrix(data_train[, -1])  
+  data_trainy <- data.matrix(data_train$dietaryMCPD) # The first column is the target variable
   
-  data_testx <-data.matrix(data_test[2:dim(data_MCPD)[2]]) 
-  data_testy <- data.matrix(data_test[1])
+  data_validx <- data.matrix(data_valid[, -1])
+  data_validy <- data.matrix(data_valid$dietaryMCPD)
   
-  data_validx <-data.matrix(data_valid[2:dim(data_MCPD)[2]]) 
-  data_validy <- data.matrix(data_valid[1])
+  data_testx <- data.matrix(test[, -1])
+  data_testy <- data.matrix(test$dietaryMCPD)
   
-  dtrain <- lgb.Dataset(data = data_trainx,
-                        label = data_trainy)
+  # Create the LightGBM dataset
+  dtrain <- lgb.Dataset(data = data_trainx, label = data_trainy)
+  dvalid <- lgb.Dataset(data = data_validx, label = data_validy)
   
-  dvalid <- lgb.Dataset(data = data_validx,
-                        label = data_validy)
+  # Train Model
+  params <- list(
+    objective = 'regression_l2',
+    metric = 'rmse'
+  )
   
-  dtest <- lgb.Dataset.create.valid(dataset=dvalid,
-                                    data=data_validx,
-                                    label=data_validy)
+  lgb1 <- lgb.train(
+    params = params,
+    data = dtrain,
+    valids = list(valid = dvalid),
+    nrounds = 1500,
+    early_stopping_rounds = 10
+  )
   
-  valids <- list(test=dtest)
-  
-  lgb1 <- lgb.train(data=dtrain,
-                    valids = valids,
-                    obj = 'regression_l2'
-  ) 
-  # Predict performance
+  # Performance for training set
   trainpred <- predict(lgb1, data_trainx)
-  temp.train = defaultSummary(data.frame(obs = data_train$dietaryMCPD,pred = trainpred))
-  result.train <<- rbind(result.train[1:3],c(mean(temp.train[1]),
-                                             mean(temp.train[2]),
-                                             mean(temp.train[3])))
-  # Predict performance in Test Sets
+  temp.train <- defaultSummary(data.frame(obs = data_train$dietaryMCPD, pred = trainpred))
+  result.train[i, ] <- c(temp.train["RMSE"], temp.train["Rsquared"], temp.train["MAE"])
+  
+  # Performance for test set
   testpred <- predict(lgb1, data_testx)
-  
-  temp.test = defaultSummary(data.frame(obs = data_test$dietaryMCPD, pred = testpred))
-  
-  result.test <<- rbind(result.test[1:3],c(mean(temp.test[1]),
-                                           mean(temp.test[2]),
-                                           mean(temp.test[3]))) 
+  temp.test <- defaultSummary(data.frame(obs = test$dietaryMCPD, pred = testpred))
+  result.test[i, ] <- c(temp.test["RMSE"], temp.test["Rsquared"], temp.test["MAE"])
 }
-mean(result.train[2:(K+1),2])
-mean(result.test[2:(K+1),2])
 
-R2_LGBM <- result.test[2:(K+1),2]
-RMSE_LGBM <- result.test[2:(K+1),1]
-MAE_LGBM <- result.test[2:(K+1),3]
+R2_LGBM <- result.test$R2
+RMSE_LGBM <- result.test$RMSE
+MAE_LGBM <- result.test$MAE
 
-# Mean performance of train and test sets.
-Result_total[6,1:7] = c('LGBM',mean(result.train[2:(K+1),1]),
-                        mean(result.train[2:(K+1),2]),
-                        mean(result.train[2:(K+1),3]),
-                        mean(result.test[2:(K+1),1]),
-                        mean(result.test[2:(K+1),2]),
-                        mean(result.test[2:(K+1),3]))
-
-# Variable Importance
-importance_matrix <- lgb.importance(model = lgb1, percentage = TRUE)
-print(importance_matrix)
-pdf('01_Output_Results/LGBM.pdf')
-lgb.plot.importance(tree_imp = importance_matrix,
-                    top_n = 20L,
-                    measure = 'Cover')
-#pdf('/Users/gsn/Desktop/LGBM.pdf')
-#ActualvsPredict()
-dev.off()
+Result_total[5, ] <- c(
+  'LGBM',
+  mean(result.train$RMSE),
+  mean(result.train$R2),
+  mean(result.train$MAE),
+  mean(result.test$RMSE),
+  mean(result.test$R2),
+  mean(result.test$MAE)
+)
 ```
 
 ## XGBoost
 ```{r}
 library(xgboost)
-set.seed(1)
-folds <- createFolds(y=data_MCPD$dietaryMCPD,k=K)
-result.train <<- data.frame(RMSE=c(0), R2=c(0),MAE=c(0))
-result.test <<- data.frame(RMSE=c(0), R2=c(0),MAE=c(0))
-for (i in c(1:K)){
-  test <- data_MCPD[folds[[i]],]
-  trains.all <- data_MCPD[-folds[[i]],]
+set.seed(208)
+folds <- createFolds(y = data_MCPD$dietaryMCPD, k = K)
+
+# Initialize the result data frame
+result.train <- data.frame(RMSE = numeric(K), R2 = numeric(K), MAE = numeric(K))
+result.test <- data.frame(RMSE = numeric(K), R2 = numeric(K), MAE = numeric(K))
+
+for (i in 1:K) {
+  test <- data_MCPD[folds[[i]], ]
+  trains.all <- data_MCPD[-folds[[i]], ]
   
-  trains <- sample(rownames(trains.all), nrow(trains.all)*3/4) # 后者为抽样样本的数量
-  valids <- setdiff(rownames(trains.all), trains) # 获得两个数据集的差值
+  # Build Validation Sample to avoid overfitting
+  train_indices <- sample(rownames(trains.all), size = floor(nrow(trains.all) * 4/5))
+  valid_indices <- setdiff(rownames(trains.all), train_indices)
   
-  data_train <- data_MCPD[trains,]
-  data_valid <- data_MCPD[valids,]
+  data_train <- trains.all[train_indices, ]
+  data_valid <- trains.all[valid_indices, ]
   data_test <- test
-  sum(duplicated(rownames(data_train), rownames(data_test)))
-  sum(duplicated(rownames(data_valid), rownames(data_test)))
   
-  # 数据准备
-  colnames(data_MCPD)
-  dvfunc <- dummyVars(~., data = data_train[, 2:dim(data_MCPD)[2]], fullRank = T)
+  # Prapare Data
+  dvfunc <- dummyVars(~., data = data_train[, -1], fullRank = TRUE)
   
-  # 将分类数据转为矩阵形式，fullRank=T去除变量的共线性
-  data_trainx <- predict(dvfunc, newdata = data_train[,2:dim(data_MCPD)[2]])
+  data_trainx <- predict(dvfunc, newdata = data_train[, -1])
   data_trainy <- data_train$dietaryMCPD
   
-  data_validx <- predict(dvfunc, newdata = data_valid[,2:dim(data_MCPD)[2]])
+  data_validx <- predict(dvfunc, newdata = data_valid[, -1])
   data_validy <- data_valid$dietaryMCPD
   
-  data_testx <- predict(dvfunc, newdata = data_test[,2:dim(data_MCPD)[2]])
+  data_testx <- predict(dvfunc, newdata = data_test[, -1])
   data_testy <- data_test$dietaryMCPD
   
-  dtrain <- xgb.DMatrix(data = data_trainx,
-                        label = data_trainy)
+  # Create the XGBoost data matrix
+  dtrain <- xgb.DMatrix(data = data_trainx, label = data_trainy)
+  dvalid <- xgb.DMatrix(data = data_validx, label = data_validy)
+  dtest <- xgb.DMatrix(data = data_testx, label = data_testy)
+  watchlist <- list(train = dtrain, valid = dvalid)  # avoid overfitting
   
-  dvalid <- xgb.DMatrix(data = data_validx,
-                        label = data_validy)
-  
-  dtest <- xgb.DMatrix(data = data_testx,
-                       label = data_testy)
-  
-  # 提前终止数据准备
-  watchlist <- list(train = dtrain, test=dvalid)
-  
-  # 模型训练
+  # Model Training
   fit_xgb_reg <- xgb.train(
+    params = list(
+      objective = 'reg:squarederror',
+      eval_metric = 'rmse'
+    ),
     data = dtrain,
-    objective = 'reg:squarederror', # 明确所训练模型的类型
-    nrounds = 500, #迭代次数，训练树的数量
+    nrounds = 1500,
     watchlist = watchlist,
-    #训练终止策略，模型训练好后在validation上进行验证效果，
+    early_stopping_rounds = 10,
     verbose = 0
   )
   
-  # 预测
-  trainpred <- predict(fit_xgb_reg,
-                       newdata = dtrain)
-  # 训练集
-  temp.train = defaultSummary( # 源自caret包
-    data.frame(obs = data_train$dietaryMCPD,
-               pred = trainpred))
+  # Performance for training set
+  trainpred <- predict(fit_xgb_reg, newdata = data_trainx)
+  temp.train <- defaultSummary(data.frame(obs = data_train$dietaryMCPD, pred = trainpred))
+  result.train[i, ] <- c(temp.train["RMSE"], temp.train["Rsquared"], temp.train["MAE"])
   
-  result.train <<- rbind(result.train[1:3],c(mean(temp.train[1]),
-                                             mean(temp.train[2]),
-                                             mean(temp.train[3])))
-  
-  # 测试集预测效果
-  testpred <- predict(fit_xgb_reg,
-                      newdata = dtest)
-  
-  temp.test = defaultSummary(data.frame(obs = data_test$dietaryMCPD,
-                                        pred = testpred))
-  
-  result.test <<- rbind(result.test[1:3],c(mean(temp.test[1]),
-                                           mean(temp.test[2]),
-                                           mean(temp.test[3])))
+  # Performance for test set
+  testpred <- predict(fit_xgb_reg, newdata = data_testx)
+  temp.test <- defaultSummary(data.frame(obs = data_test$dietaryMCPD, pred = testpred))
+  result.test[i, ] <- c(temp.test["RMSE"], temp.test["Rsquared"], temp.test["MAE"])
 }
-mean(result.train[2:(K+1),2])
-mean(result.test[2:(K+1),2]) #0.8~0.92
 
-R2_XGB <- result.test[2:(K+1),2]
-RMSE_XGB <- result.test[2:(K+1),1]
-MAE_XGB <- result.test[2:(K+1),3]
-# 训练集、测试集平均结果
-Result_total[7,1:7] = c('XGB',mean(result.train[2:(K+1),1]),
-                        mean(result.train[2:(K+1),2]),
-                        mean(result.train[2:(K+1),3]),
-                        mean(result.test[2:(K+1),1]),
-                        mean(result.test[2:(K+1),2]),
-                        mean(result.test[2:(K+1),3]))
+R2_XGB <- result.test$R2
+RMSE_XGB <- result.test$RMSE
+MAE_XGB <- result.test$MAE
 
-importance_matrix <- xgb.importance(model = fit_xgb_reg)
-importance_matrix2 <- data.frame(importance_matrix)
-#write.csv(importance_matrix2, '/Users/gsn/Desktop/importance_matrix.csv')
-print(importance_matrix)
-pdf('/Users/gsn/Desktop/XGB.pdf')
-xgb.plot.importance(importance_matrix = importance_matrix,
-                    top_n = 20L,
-                    measure = 'Cover')
-dev.off()
-pdf('/Users/gsn/Desktop/xgboost.pdf')
-for (i in c(1)){
-  plot(
-    x = data_test$dietaryMCPD,
-    y = testpred,
-    xlab = 'Actual',
-    ylab = 'Prediction',
-    main = 'Actual value vs Predicted value',
-    #sub = '测试集'
-  )
-  testlinmod <- lm(testpred~data_test$dietaryMCPD)
-  abline(testlinmod, col='blue', lwd=2.5, lty = 'solid')
-  abline(a=0, b=1, col='red', lwd=2.5, lty = 'dashed')
-  legend(
-    'topleft',
-    legend= c('Model', 'Base'),
-    col = c('blue','red'), # 修改了作图颜色
-    lwd = 2.5,
-    lty = c('solid','dashed')
-  )
-}
-dev.off()
-
+Result_total[6, ] <- c(
+  'XGB',
+  mean(result.train$RMSE),
+  mean(result.train$R2),
+  mean(result.train$MAE),
+  mean(result.test$RMSE),
+  mean(result.test$R2),
+  mean(result.test$MAE)
+)
 ```
 
 
 ## CatBoost
 ```{r}
+library(catboost)
+set.seed(208)
+folds <- createFolds(y = data_MCPD$dietaryMCPD, k = K)
+
+# Initialize the result data frame
+result.train <- data.frame(RMSE = numeric(K), R2 = numeric(K), MAE = numeric(K))
+result.test <- data.frame(RMSE = numeric(K), R2 = numeric(K), MAE = numeric(K))
+
+for (i in 1:K) {
+  fold.test <- data_MCPD[folds[[i]], ]
+  fold.train <- data_MCPD[-folds[[i]], ]
+  
+  # Prepare the CatBoost data pool
+  train_pool <- catboost.load_pool(data = fold.train[, -target], 
+                                   label = as.matrix(fold.train[, target]),
+                                   cat_features = cat_features)	
+  test_pool <- catboost.load_pool(data = fold.test[, -target], 
+                                  label = as.matrix(fold.test[, target]),
+                                  cat_features = cat_features)
+  
+  # 设置CatBoost模型的参数
+  fit_params <- list(
+    iterations = 300,
+    thread_count = 10,
+    loss_function = 'RMSE',
+    train_dir = 'train_dir',
+    logging_level = 'Silent'
+  )
+  
+  # 训练CatBoost模型
+  model.cat <- catboost.train(train_pool, test_pool, fit_params)
+  
+  # 训练集预测
+  trainpred <- catboost.predict(model.cat, train_pool)
+  temp.train <- defaultSummary(data.frame(obs = fold.train$dietaryMCPD, pred = trainpred))
+  result.train[i, ] <- c(temp.train["RMSE"], temp.train["Rsquared"], temp.train["MAE"])
+  
+  # 测试集预测
+  testpred <- catboost.predict(model.cat, test_pool)
+  temp.test <- defaultSummary(data.frame(obs = fold.test$dietaryMCPD, pred = testpred))
+  result.test[i, ] <- c(temp.test["RMSE"], temp.test["Rsquared"], temp.test["MAE"])
+}
+
+# 计算并打印平均性能指标
+mean_train_R2 <- mean(result.train$R2)
+mean_test_R2 <- mean(result.test$R2)
+
+R2_CAT <- result.test$R2
+RMSE_CAT <- result.test$RMSE
+MAE_CAT <- result.test$MAE
+
+# 初始化并填充结果数据框
+Result_total <- data.frame(
+  Model = character(8),  # 假设前面有七个模型，第八个是CatBoost
+  Train_RMSE = numeric(8),
+  Train_R2 = numeric(8),
+  Train_MAE = numeric(8),
+  Test_RMSE = numeric(8),
+  Test_R2 = numeric(8),
+  Test_MAE = numeric(8),
+  stringsAsFactors = FALSE
+)
+
+# 存储CatBoost模型的结果
+Result_total[8, ] <- c(
+  'CAT',
+  mean(result.train$RMSE),
+  mean(result.train$R2),
+  mean(result.train$MAE),
+  mean(result.test$RMSE),
+  mean(result.test$R2),
+  mean(result.test$MAE)
+)
+
 
 ```
 
+# 03.Output final results
