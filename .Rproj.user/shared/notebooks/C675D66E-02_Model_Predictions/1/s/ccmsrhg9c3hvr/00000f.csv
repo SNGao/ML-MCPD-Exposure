@@ -1,6 +1,0 @@
-"0","hyper_para = list()"
-"0","hyper_para[[""svr""]] = best_params_svr"
-"0","hyper_para[[""rf""]] = best_params_rf"
-"0","hyper_para[[""xgb""]] = best_param.xgb"
-"0","hyper_para[[""lgb""]] = best_param.lgb"
-"0","hyper_para[[""cat""]] = best_param.cat"

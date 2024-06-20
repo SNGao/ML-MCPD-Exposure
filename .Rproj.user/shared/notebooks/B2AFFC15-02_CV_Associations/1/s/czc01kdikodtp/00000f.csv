@@ -1,0 +1,4 @@
+"0","Result_total = data.frame(model = c(0),"
+"0","                          train_RMSE=c(0), train_R2=c(0), train_MAE=c(0),"
+"0","                          test_RMSE=c(0), test_R2=c(0), test_MAE=c(0))"
+"0","K = 5"

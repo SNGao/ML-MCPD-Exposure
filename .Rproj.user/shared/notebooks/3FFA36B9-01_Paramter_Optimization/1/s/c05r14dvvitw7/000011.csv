@@ -1,0 +1,3 @@
+"0","cat_num = which(colnames(X_train) %in% cat_list )"
+"0","X_train[,cat_num] = lapply(X_train[,cat_num], as.numeric)"
+"0","X_test[,cat_num] = lapply(X_test[,cat_num], as.numeric)"

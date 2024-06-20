@@ -1,0 +1,15 @@
+"0","pdf('01_Output_Results/XGB_VIP.pdf', height = 8, width = 6)
+xgb.plot.importance(importance_matrix = xgb.importance(model = xgb.model),
+                    measure = 'Frequency')
+xgb.plot.importance(importance_matrix = xgb.importance(model = xgb.model),
+                    measure = 'Cover')
+xgb.plot.importance(importance_matrix = xgb.importance(model = xgb.model),
+                    measure = 'Gain')
+dev.off()
+"
+"1","null device "
+"1","
+"
+"1","          1 "
+"1","
+"

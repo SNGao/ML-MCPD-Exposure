@@ -1,0 +1,3 @@
+"0","colinear.out = data.frame(vif(model.MLR3)) # No"
+"0","colnames(colinear.out)[3] = 'GVIF^(1/(2*Df))'"
+"0","write.csv(colinear.out, '01_Output_Results/CoLinear_Check.csv')"
