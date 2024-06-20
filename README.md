@@ -4,9 +4,9 @@ This repository contains the code used in the paper titled "Internal and Externa
 
 The code is organized into three main parts:
 
-1. **Data Cleaning and Exploration**: This section focuses on cleaning the data and exploring its characteristics.
-2. **Visualization of Associations**: Here, we use machine learning methods with default parameters to visualize the associations between internal biomarkers and external exposure.
-3. **Prediction Performance Analysis**: This part evaluates the prediction performance of different machine learning methods with optimized hyper-parameters.
+1. **Data Cleaning and Exploration**: This section focuses on cleaning the data and exploring its characteristics. Highlight the importance of interaction term between DHPMA and covariates in the MLR and GAM models.
+2. **Parameters Optimization**: Here, we optimized parameters of machine learning method to overcome overfitting and better understand the associations between internal biomarkers and external exposure.
+5. **Association Analysis**: This part evaluates the internal and external associations using optimized ML models in randomly segmented data sets.
 
 The research data is not publicly available. However, those interested can use their own data to replicate the analyses.
 
@@ -25,3 +25,7 @@ The following machine learning methods are used in the study:
 - XGBoost
 - LightGBM
 - CatBoost
+
+### Highlights
+- Urinary DHPMA concentration exhibits a good associations with diet-sourced 3-MCPD exposure in the machine learning models, indicating its potential as a biomarker of dietary 3-MCPD exposure
+- The association between dietary 3-MCPD exposure (external) and urinary DHPMA (internal) is modified by various covariates, as revealed by the variable importance analysis in the machine learning models and the significance of intercation term in MLR/GAM.
