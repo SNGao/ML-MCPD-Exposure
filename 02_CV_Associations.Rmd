@@ -13,6 +13,7 @@ library(car)
 library(splines)
 library(gam)
 library(caret)
+library(e1071)
 
 source('02_src/defined_functions.R')
 data_MCPD = read.csv('00_Data/process_data.csv')
@@ -90,10 +91,15 @@ for (i in 1:K) {
   fold.train <- data_MCPD[-folds[[i]], ]
   
   # Train model
-  model.gam <- gam(dietaryMCPD~CREATININE+HEIGHT+BMI+age
-                             + bs(BEANOILintake) + bs(PEANUTOIintake) + bs(LARDOILintake) 
-                             + bs(MET) + DHPMA_a + bs(totalenergy)
-                             + MARRIAGE + SEX + FAMINCOM5w + CVD + SMOKE        
+  model.gam <- lm(dietaryMCPD~ns(CREATININE, df = 2) +ns(HEIGHT, df = 2)+BMI
+                             + age
+                             + ns(BEANOILintake) 
+                             + ns(PEANUTOIintake) 
+                             + ns(LARDOILintake)
+                             + ns(MET, df = 2) 
+                             + ns(DHPMA_a, df = 2)
+                             + ns(totalenergy, df = 2)
+                             + MARRIAGE+SEX+FAMINCOM5w+CVD+SMOKE     
                              + HBP+alcohol+education
                              , data = fold.train)
   

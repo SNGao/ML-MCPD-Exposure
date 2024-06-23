@@ -1,7 +1,0 @@
-"0","library(randomForest)"
-"0","param_grid_rf <- list("
-"0","  mtry = c(6, 8, 10),         # Number of randomly selected features when splitting"
-"0","  ntree = c(500, 600, 700), # The number of decision trees"
-"0","  maxnodes = c(60, 80, 100),  # Maximum number of nodes per tree"
-"0","  nodesize = c(6, 8, 10)             # Minimum number of samples per node"
-"0",")"

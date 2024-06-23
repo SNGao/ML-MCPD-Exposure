@@ -1,6 +1,0 @@
-"0","library(e1071)"
-"0","param_grid_svr <- list("
-"0","  cost = c(0.1, 1, 10, 100),       # penalty parameters"
-"0","  gamma = c(0.001, 0.01, 0.1, 1),  # parameter of kernal functions"
-"0","  epsilon = c(0.01, 0.1, 0.2, 0.3) # loose variable in loss functions"
-"0",")"
