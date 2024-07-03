@@ -1,6 +1,0 @@
-"0","library(nortest)"
-"0","norm.test = lillie.test(data_MCPD$dietaryMCPD)"
-"0",""
-"0","pdf('01_Output_Results/Normality-test-MCPD.pdf')"
-"0","hist_data = hist(data_MCPD$dietaryMCPD,"
-"0","     main = ""Histogram of dietaryMCPD"", xlab = ""dietaryMCPD"", col = ""lightblue"")"

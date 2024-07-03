@@ -1,0 +1,17 @@
+"0","Result_total = data.frame(model = c(0),"
+"0","                          train_RMSE=c(0), train_R2=c(0), train_MAE=c(0),"
+"0","                          test_RMSE=c(0), test_R2=c(0), test_MAE=c(0))"
+"0","K = 5"
+"0","train"
+"1","function (x, ...) 
+"
+"1","{
+"
+"1","    UseMethod(""train"")
+"
+"1","}
+"
+"1","<bytecode: 0x7f77be457c58>
+"
+"1","<environment: namespace:caret>
+"

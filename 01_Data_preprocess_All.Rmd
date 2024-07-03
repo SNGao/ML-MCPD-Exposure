@@ -1,0 +1,399 @@
+---
+title: "00_Data_preprocess"
+---
+
+# 01.Load Packages and files
+```{r}
+library(modelr)
+library(mice)
+library(VIM)
+library(DMwR2)
+library(rpart)
+library(car)
+library(splines)
+library(gam)
+library(caret)
+library(dplyr)
+
+source('02_src/defined_functions.R')
+data_ALL = read.csv('00_Data/data_All.csv'); data_ALL$X = NULL
+data_ALL$MARRIAGE = ifelse(data_ALL$MARRIAGE == 1, 3, data_ALL$MARRIAGE) # Combine the marriage category
+
+tmp.num = data_ALL$NUMBER
+data_ALL$NUMBER = NULL
+```
+
+# 02.Pre-process data
+## Define and transform
+```{r}
+# Define Catogory Variables
+data_ALL$SEX<-as.factor(data_ALL$SEX)
+data_ALL$FAMINCOM5w<-as.factor(data_ALL$FAMINCOM5w)
+data_ALL$SMOKE<-as.factor(data_ALL$SMOKE)
+data_ALL$MARRIAGE<-as.factor(data_ALL$MARRIAGE)
+data_ALL$education<-as.factor(data_ALL$education)
+data_ALL$alcohol<-as.factor(data_ALL$alcohol)
+data_ALL$CVD<-as.factor(data_ALL$CVD)
+data_ALL$db<-as.factor(data_ALL$db)
+data_ALL$HBP<-as.factor(data_ALL$HBP)
+
+# Log-Transformed for exposure and response variable (i.e. outcome)
+data_ALL$dietaryGlycidol <- log(data_ALL$dietaryGlycidol)
+data_ALL$dietaryMCPD <- log(data_ALL$dietaryMCPD)
+data_ALL$DHPMA_a <- log(data_ALL$DHPMA_a)
+data_ALL = data_ALL[,c(dim(data_ALL)[2], 1:(dim(data_ALL)[2]-1))]
+
+# Scaled Quantitive variables
+data_ALL[,1:13]<- scale(data_ALL[,1:13],center=T,scale=T)
+data_ALL$MCPD_GLY = data_ALL$dietaryGlycidol + data_ALL$dietaryMCPD
+ks.test(data_ALL$dietaryGlycidol, data_ALL$dietaryMCPD)
+
+data_ALL$dietaryGlycidol = NULL
+data_ALL$dietaryMCPD = NULL
+data_ALL$NUMBER = tmp.num
+
+# Exclude outlier in the response variable.
+list = c()
+value <- data_ALL$MCPD_GLY
+QL <- quantile(value, probs = 0.25)
+QU <- quantile(value, probs = 0.75)
+a <- which(value > QU + 1.5*(QU-QL))
+b <- which(value < QL - 1.5*(QU-QL))
+temp <- append(a,b)
+list <- append(list, temp)
+list <- list[!duplicated(list)]
+data_ALL <- data_ALL[-list,]
+
+## Expore Number List
+write.csv(data_ALL$NUMBER, '01_Output_Results/All_selected_list.csv')
+```
+
+## Normality test
+```{r}
+library(nortest)
+norm.test = lillie.test(data_ALL$MCPD_GLY)
+
+pdf('01_Output_Results/Normality-test-All.pdf')
+hist_data = hist(data_ALL$MCPD_GLY,
+     main = "Histogram of MCPD_GLY", xlab = "MCPD_GLY", col = "lightblue")
+text(x = mean(range(data_ALL$MCPD_GLY))*1.4, 
+     y = max(hist_data$counts) * 0.8, paste0('P=',round(norm.test$p.value, 3)), col = "red", cex = 1.2)
+dev.off()
+```
+
+## Table 1
+```{r}
+data.raw = read.csv('00_Data/data_All.csv'); data.raw$X = NULL
+dat.table = data.raw[row.names(data_ALL),]
+dat.table$MARRIAGE = ifelse(dat.table$MARRIAGE == 1, 3, dat.table$MARRIAGE)
+
+## Transform Variable Name
+dat.table = dat.table |>
+  rename(Age = age,
+         DHPMA = DHPMA_a,
+         dietaryGlycidol = dietaryGlycidol,
+         Smoking = SMOKE,
+         Income = FAMINCOM5w,
+         DB = db,
+         Married = MARRIAGE,
+         Drinking = alcohol,
+         Physical_Activity = MET) |>
+  mutate(SEX = factor(
+      SEX,
+      levels = c(1, 2),
+      labels = c("Men", "Women")
+    ))
+
+## Generate Table1 Summary
+library(gtsummary)
+library(flextable)
+
+dat.table %>%
+  select(Age, education, Married, SEX, 
+         Income, Smoking, Drinking,
+         CVD, DB, HBP, Physical_Activity,
+         BMI, DHPMA, dietaryMCPD, dietaryGlycidol,
+         BEANOILintake, PEANUTOIintake, LARDOILintake, totalenergy) %>%
+  tbl_summary(
+    by = "SEX",
+    statistic = list(
+      all_continuous() ~ "{mean} ({sd})",
+      all_categorical() ~ "{n} ({p}%)"
+    ),
+    digits = list(
+      all_continuous() ~ c(2, 2),  # 保留两位小数
+      all_categorical() ~ c(0, 2)  # 保留两位小数的百分比
+    )) %>%
+  add_overall() %>%
+  add_p(test = list(all_continuous() ~ "aov",
+                    all_categorical() ~ "chisq.test")) %>%
+  as_flex_table() %>%
+  save_as_docx(path = "01_Output_Results/Table1.All.docx")
+```
+
+
+# 03.MLR Models
+## Fitted results
+```{r}
+data_ALL$NUMBER = NULL
+model.MLR1 <-lm(MCPD_GLY ~ age+SEX+education+MARRIAGE 
+                +alcohol+SMOKE+FAMINCOM5w+DHPMA_a, 
+                  data = data_ALL)
+
+model.MLR2 <-lm(MCPD_GLY ~ age+SEX+education+MARRIAGE
+                +alcohol+SMOKE+FAMINCOM5w
+                +HEIGHT+BMI+CREATININE+MET+CVD+HBP+MET+db+HBP+WEIGHT+DHPMA_a, 
+                data = data_ALL)
+
+model.MLR3 <-lm(MCPD_GLY ~ age+SEX+education+MARRIAGE
+                +alcohol+SMOKE+FAMINCOM5w
+                +HEIGHT+BMI+CREATININE+MET+CVD+HBP+MET+db+HBP+WEIGHT
+                +totalenergy+BEANOILintake+PEANUTOIintake+LARDOILintake
+                +DHPMA_a, 
+                data = data_ALL)
+
+MLR1.summary = broom::tidy(model.MLR1, conf.int = TRUE)
+MLR2.summary = broom::tidy(model.MLR2, conf.int = TRUE)
+MLR3.summary = broom::tidy(model.MLR3, conf.int = TRUE)
+
+write.csv(MLR1.summary, '01_Output_Results/MLR1_output.ALL.csv')
+write.csv(MLR2.summary, '01_Output_Results/MLR2_output.ALL.csv')
+write.csv(MLR3.summary, '01_Output_Results/MLR3_output.ALL.csv')
+
+# summary(model.MLR1)
+# summary(model.MLR2)
+# summary(model.MLR3)
+```
+
+## Selection by Lasso
+```{r}
+set.seed(20)
+pdf('01_Output_Results/Figure-Lasso.ALL.pdf')
+library(glmnet)
+x = model.matrix(MCPD_GLY~.,data_ALL)
+y = data_ALL$MCPD_GLY
+
+grid = 10^seq(5,-5,length=100)
+lasso.model = glmnet(x,y, alpha=1, lambda=grid)
+cv.out <- cv.glmnet(x,y,alpha=1)
+bestlam <- cv.out$lambda.min
+lam_1se <- cv.out$lambda.1se
+lasso.pred <- predict(lasso.model, s = bestlam, newx = x)
+lasso.coef = predict(lasso.model, type = 'coefficients', s = bestlam)
+plot(cv.out)
+plot(lasso.model)
+
+dev.off()
+
+lasso.coef.out = data.frame(as.matrix(lasso.coef))
+write.csv(lasso.coef.out, '01_Output_Results/Lasso-Coefficients.ALL.csv') 
+# Exclude variables whose s1 value is '.', WEIGHT + BMI
+```
+
+
+## Exclude WEIGHT and BMI Variable for MLR-4
+```{r}
+model.MLR4 <-lm(MCPD_GLY ~ age+SEX+education+MARRIAGE
+                +alcohol+SMOKE+FAMINCOM5w
+                +HEIGHT+CREATININE+MET+CVD+HBP+MET+db+HBP
+                +totalenergy+BEANOILintake+PEANUTOIintake+LARDOILintake
+                +DHPMA_a,
+                data = data_ALL)
+
+MLR4.summary = broom::tidy(model.MLR4, conf.int = TRUE)
+write.csv(MLR4.summary, '01_Output_Results/MLR4_output(NoWEIGHT+BMI).csv')
+# summary(model.MLR4)
+```
+
+### Visualization of MLR-4
+```{r}
+library(here)
+library(forestploter)
+library(grid)
+# Define theme
+tm <- forest_theme(base_size = 10,
+                   refline_col = "red",
+                   footnote_col = "#636363",
+                   footnote_fontface = "italic",
+                   ci_Theight = 0.2)
+## pre-process data
+dat = readxl::read_xlsx('01_Output_Results/MLR4_forest_plot_dat.xlsx'); dat$X = NULL
+dat$p.value <-
+  ifelse(is.na(dat$p.value),
+         "",
+         round(dat$p.value, 3))
+dat$p.value <- ifelse(dat$p.value < 0.001 & dat$p.value != '', 
+                      '<0.001', dat$p.value)
+dat$Variables = ifelse(grepl('vs', dat$Variables), paste0('  ', dat$Variables), dat$Variables)
+
+## Sort visulization order
+dat$` ` <- paste(rep(" ", 20), collapse = " ")
+colnames(dat)[c(4)] = c('P value')
+dat$`Coef (95%CI)` = ifelse(dat$`P value` == '',
+                            '',
+                            sprintf("%.2f (%.2f, %.2f)", dat$coef, dat$lower_CI, dat$upper_CI))
+dat$`P value`[which(dat$`P value` == '0.83')] = '0.830'
+dat$Variables[23] = paste0("Urine creatinine (", "u", 'mol/L)')
+
+## Exclude the second row for each variable
+plot1 <- forest(
+  dat[, c(1, 7, 8, 4)],
+  est = dat$coef,
+  lower = dat$lower_CI,
+  upper = dat$upper_CI,
+  sizes = 0.4,
+  ci_column = 2,
+  ref_line = 0,
+  font.family = "Arial Unicode MS",
+  xlim = c(-1, 1),
+  ticks_at = c(-1, -0.5, 0, 0.5, 1),
+  #x_trans = c("log"),
+  #arrow_lab = c("Placebo Better", "Treatment Better"),
+  #footnote = "This is the demo data. Please feel free to change\nanything you want.",
+  theme = tm) |>
+  edit_plot(row = c(1,2,4,7,9,11,14,16,18,20, 22:29),
+            col = 1,
+            gp = gpar(fontface = "bold")) |>
+  add_border(part = "header", where = c("bottom")) |>
+  add_border(part = "header", where = c("top"))
+
+pdf('01_Output_Results/MLR_forest.pdf')
+plot1
+dev.off()
+```
+
+
+## Interaction between DHPMA and co-varaites
+```{r}
+data_ALL$WEIGHT = NULL
+data_ALL$BMI = NULL
+colnames(data_ALL)
+varList <- c("CREATININE","HEIGHT","age","BEANOILintake",
+             "PEANUTOIintake","LARDOILintake","MET","totalenergy",'db',
+             "MARRIAGE","SMOKE","SEX","FAMINCOM5w","CVD","HBP","alcohol","education")
+
+## Interaction Check
+results_BA_CES <- data.frame(Estimate = NA,
+                             SE = NA,
+                             T.value = NA,
+                             P_value = NA,
+                             R = NA)
+for (var in varList){
+  formula = as.formula(paste0('MCPD_GLY~ DHPMA_a','+.+DHPMA_a:', var))
+  fit <- lm(formula, data_ALL)
+  a = summary(fit); tmp = data.frame(a$coefficients)
+  colnames(tmp) = c('Estimate', 'SE', 'T.value', 'P_value')
+  tmp$R = a$r.squared
+  
+  ## Find Output Row Number
+  num1 = grepl('DHPMA_a', row.names(tmp))
+  num2 = grepl(var, row.names(tmp))
+  num.all = num1 | num2
+  
+  results_BA_CES = rbind(results_BA_CES, tmp[num.all,])
+}
+results_BA_CES[-1,]
+write.csv(results_BA_CES[-1,],
+          '01_Output_Results/MLR4_Interaction.All.csv')
+
+order = order(results_BA_CES[grepl(':',row.names(results_BA_CES)),]$R, decreasing = TRUE)
+results_BA_CES[grepl(':',row.names(results_BA_CES)),][order,]
+```
+
+# 04.GAM Model
+### Fit and Check Non-linearity
+```{r}
+model.gam1 <- lm(MCPD_GLY~ ns(CREATININE, df = 2) +ns(HEIGHT, df = 2)
+                             + ns(age, df = 2) 
+                             + ns(BEANOILintake) 
+                                  # all interior knots match left boundary knot (df = 3~6)
+                                  # shoving 'interior' knots matching boundary knots to inside
+                             + ns(PEANUTOIintake) 
+                                  # all interior knots match left boundary knot (df = 3~6)
+                                  # shoving 'interior' knots matching boundary knots to inside
+                             + ns(LARDOILintake)
+                                  # all interior knots match left boundary knot (df = 3~6)
+                                  # shoving 'interior' knots matching boundary knots to inside
+                             + ns(MET, df = 2) 
+                             + ns(DHPMA_a, df = 2)
+                             + ns(totalenergy, df = 2)
+                             + MARRIAGE+SEX+FAMINCOM5w+CVD+SMOKE     
+                             + HBP+alcohol+education+db
+                             , data = data_ALL)
+GAM1.summary = summary(model.gam1)
+write.csv(data.frame(GAM1.summary$coefficients), '01_Output_Results/GAM1-Check-NonLinear.ALL.csv')
+
+library(visreg)
+pdf('01_Output_Results/vis_DHPMA.pdf', width = 8, height = 6)
+visreg(model.gam1, "DHPMA_a", main = "MCPD_GLY vs. DHPMA_a", ylab = "MCPD_GLY", xlab = "DHPMA_a")
+dev.off()
+```
+
+### Re-fit Model
+```{r}
+library(mgcv)
+model.gam2 <- lm(MCPD_GLY~ ns(CREATININE, df = 2) + ns(HEIGHT, df = 2) + age
+                             + ns(BEANOILintake) 
+                             + ns(PEANUTOIintake) 
+                             + ns(LARDOILintake)
+                                  # all interior knots match left boundary knot (df = 2~6)
+                                  # shoving 'interior' knots matching boundary knots to inside
+                             + ns(MET, df = 2) 
+                             + ns(DHPMA_a, df = 2)
+                             + ns(totalenergy, df = 2)
+                             + MARRIAGE+SEX+FAMINCOM5w+CVD+SMOKE     
+                             + HBP+alcohol+education+db
+                             , data = data_ALL)
+  
+  
+# Age doesn't show non-linearity characteristics.
+GAM2.summary = summary(model.gam2)
+write.csv(data.frame(GAM2.summary$coefficients), '01_Output_Results/GAM2-Performance.ALL.csv')
+```
+
+## Interaction between DHPMA and co-varaites
+```{r}
+colnames(data_ALL)
+varList <- c("CREATININE","HEIGHT","age","BEANOILintake",
+             "PEANUTOIintake","LARDOILintake","MET","totalenergy",'db',
+             "MARRIAGE","SMOKE","SEX","FAMINCOM5w","CVD","HBP","alcohol","education")
+
+## Interaction Check
+nonlinear.var = c('CREATININE', 'HEIGHT', 'MET', 'totalenergy')
+results_BA_CES <- data.frame(Estimate = NA,
+                             SE = NA,
+                             T.value = NA,
+                             P_value = NA,
+                             R = NA)
+for (var in varList){
+  if (var %in% nonlinear.var){
+    formula = as.formula(paste0('MCPD_GLY~ns(CREATININE, df = 2) + ns(HEIGHT, df = 2) + age + ns(BEANOILintake) + db +  ns(BEANOILintake) + ns(PEANUTOIintake) + ns(LARDOILintake)+ ns(MET, df = 2) + ns(DHPMA_a, df = 2)+ ns(totalenergy, df = 2)+ MARRIAGE+SEX+FAMINCOM5w+CVD+SMOKE+HBP+alcohol+education','+ns(DHPMA_a, df=2):ns(', var,', df = 2)'))
+  } else{
+    formula = as.formula(paste0('MCPD_GLY~ns(CREATININE, df = 2) +ns(HEIGHT, df = 2) + age + ns(BEANOILintake) + db + ns(BEANOILintake) + ns(PEANUTOIintake) + ns(LARDOILintake)+ ns(MET, df = 2) + ns(DHPMA_a, df = 2)+ ns(totalenergy, df = 2)+ MARRIAGE+SEX+FAMINCOM5w+CVD+SMOKE+HBP+alcohol+education','+ ns(DHPMA_a, df=2):', var))
+  }
+  
+  fit <- lm(formula, data = data_ALL)
+  a = summary(fit); tmp = data.frame(a$coefficients)
+  colnames(tmp) = c('Estimate', 'SE', 'T.value', 'P_value')
+  tmp$R = a$r.squared
+  
+  ## Find Output Row Number
+  num1 = grepl('DHPMA_a', row.names(tmp))
+  num2 = grepl(var, row.names(tmp))
+  num.all = num1 | num2
+  
+  results_BA_CES = rbind(results_BA_CES, tmp[num.all,])
+}
+results_BA_CES[-1,]
+write.csv(results_BA_CES[-1,],
+          '01_Output_Results/GAM_Interaction.ALL.csv')
+
+order = order(results_BA_CES[grepl(':',row.names(results_BA_CES)),]$R, decreasing = TRUE)
+results_BA_CES[grepl(':',row.names(results_BA_CES)),][order,]
+```
+
+```{r}
+write.csv(data_ALL, '00_Data/process_MCPD_GLY_data.csv')
+```
+
+

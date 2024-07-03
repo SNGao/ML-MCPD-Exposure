@@ -1,0 +1,6 @@
+"0","library(nortest)"
+"0","norm.test = lillie.test(data_ALL$MCPD_GLY)"
+"0",""
+"0","pdf('01_Output_Results/Normality-test-All.pdf')"
+"0","hist_data = hist(data_ALL$MCPD_GLY,"
+"0","     main = ""Histogram of MCPD_GLY"", xlab = ""MCPD_GLY"", col = ""lightblue"")"

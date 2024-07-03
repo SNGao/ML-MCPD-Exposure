@@ -1,5 +1,0 @@
-"0","write.csv(results_BA_CES[-1,],"
-"0","          '01_Output_Results/GAM_Interaction.csv')"
-"0",""
-"0","order = order(results_BA_CES[grepl(':',row.names(results_BA_CES)),]$R, decreasing = TRUE)"
-"0","results_BA_CES[grepl(':',row.names(results_BA_CES)),][order,]"

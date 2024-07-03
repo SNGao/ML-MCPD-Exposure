@@ -3,7 +3,7 @@ ActualvsPredict <- function(data.test,
                             testpred,
                             var_name){
   plot(
-    x = data.test$dietaryMCPD,
+    x = data.test$MCPD_GLY,
     y = testpred,
     xlab = 'Actual',
     ylab = 'Prediction',
@@ -11,7 +11,7 @@ ActualvsPredict <- function(data.test,
     #sub = 'test set'
   )
   
-  testlinmod <- lm(testpred ~ data.test$dietaryMCPD)
+  testlinmod <- lm(testpred ~ data.test$MCPD_GLY)
   abline(testlinmod, col='blue', lwd=2.5, lty = 'solid')
   abline(a=0, b=1, col='red', lwd=2.5, lty = 'dashed')
   legend(

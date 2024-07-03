@@ -1,0 +1,40 @@
+"0","library(mgcv)"
+"2","Loading required package: nlme
+"
+"2","
+Attaching package: ‘nlme’
+
+"
+"2","The following object is masked from ‘package:dplyr’:
+
+    collapse
+
+"
+"2","This is mgcv 1.9-0. For overview type 'help(""mgcv-package"")'.
+"
+"2","
+Attaching package: ‘mgcv’
+
+"
+"2","The following objects are masked from ‘package:gam’:
+
+    gam, gam.control, gam.fit, s
+
+"
+"0","model.gam2 <- gam(MCPD_GLY~ ns(CREATININE, df = 2) + ns(HEIGHT, df = 2) + age"
+"0","                             + ns(BEANOILintake) "
+"0","                             + ns(PEANUTOIintake) "
+"0","                             + ns(LARDOILintake)"
+"0","                                  # all interior knots match left boundary knot (df = 2~6)"
+"0","                                  # shoving 'interior' knots matching boundary knots to inside"
+"0","                             + ns(MET, df = 2) "
+"0","                             + ns(DHPMA_a)"
+"0","                             + ns(totalenergy, df = 2)"
+"0","                             + MARRIAGE+SEX+FAMINCOM5w+CVD+SMOKE     "
+"0","                             + HBP+alcohol+education"
+"0","                             , data = data_ALL)"
+"0","  "
+"0","  "
+"0","# Age doesn't show non-linearity characteristics."
+"0","GAM2.summary = summary(model.gam2)"
+"0","write.csv(data.frame(GAM2.summary$coefficients), '01_Output_Results/GAM2-Performance.ALL.csv')"
